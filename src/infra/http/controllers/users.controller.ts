@@ -1,3 +1,4 @@
+import { FindAllUsers } from '@app/use-cases/find-users';
 import {
   Controller,
   Delete,
@@ -7,34 +8,34 @@ import {
   Param,
   Body,
 } from '@nestjs/common';
-import { User } from '@prisma/client';
-import {
-  FindUserById,
-  findUserByIdResponse,
-} from 'src/app/use-cases/find-user';
+import { FindUserById } from 'src/app/use-cases/find-user';
 import { UserViewModel } from '../view-models/user-view-model';
 
 @Controller()
 export class UsersController {
-  constructor(private findUserById: FindUserById) {}
+  constructor(
+    private findUserById: FindUserById,
+    private findAllUsers: FindAllUsers,
+  ) {}
 
   /* @Post('user')
   create(@Body() data: createUser) {
     return this.usersService.create(data);
-  }
+  } */
 
   @Get('users')
-  findAll() {
-    return this.usersService.findAll();
-  } */
+  async findAll() {
+    const { users } = await this.findAllUsers.execute();
+    return {
+      users: users.map(UserViewModel.toHTTP),
+    };
+  }
 
   @Get('user/:id')
   async findById(@Param('id') id: string) {
     const { user } = await this.findUserById.execute({ id });
 
-    return {
-      user: UserViewModel.toHTTP(user),
-    };
+    return UserViewModel.toHTTP(user);
   }
 
   /* @Patch('user')
