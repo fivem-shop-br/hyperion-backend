@@ -1,4 +1,4 @@
-import { IsBoolean, IsNotEmpty } from 'class-validator';
+import { IsBoolean, IsEmail, IsNotEmpty } from 'class-validator';
 
 export default class updateUser {
   @IsNotEmpty({ message: 'id is empty' })
@@ -8,6 +8,7 @@ export default class updateUser {
   name: string;
 
   @IsNotEmpty({ message: 'email is empty' })
+  @IsEmail()
   email: string;
 
   @IsNotEmpty({ message: 'password is empty' })

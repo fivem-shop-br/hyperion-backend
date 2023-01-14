@@ -1,6 +1,6 @@
-import createUser from '../dtos/create-user';
-import updateUser from '../dtos/update.user';
-import deleteUser from '../dtos/delete-user';
+import createUser from './dtos/create-user';
+import updateUser from './dtos/update.user';
+import deleteUser from './dtos/delete-user';
 import { User } from '@prisma/client';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';

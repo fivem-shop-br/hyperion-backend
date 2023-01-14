@@ -7,9 +7,9 @@ import {
   Param,
   Body,
 } from '@nestjs/common';
-import updateUser from '../dtos/update.user';
-import deleteUser from '../dtos/delete-user';
-import createUser from '../dtos/create-user';
+import updateUser from './dtos/update.user';
+import deleteUser from './dtos/delete-user';
+import createUser from './dtos/create-user';
 import { User } from '@prisma/client';
 import { UsersService } from './users.service';
 
