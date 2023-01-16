@@ -16,8 +16,6 @@ export class UpdateUser {
     const { userId: id } = request;
     const user = await this.userRepository.findById(id);
 
-    console.log(id);
-
     if (!user) {
       throw new Error({
         message: ['User not found'],

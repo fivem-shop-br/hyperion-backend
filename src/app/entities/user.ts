@@ -1,6 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import { Replace } from 'src/helpers/Replace';
 import { hashSync } from 'bcrypt';
+
 export interface UserProps {
   id: string;
   email: string;
