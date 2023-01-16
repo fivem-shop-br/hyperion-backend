@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsEmail } from 'class-validator';
+import { IsNotEmpty, IsEmail, MinLength } from 'class-validator';
 
 export default class createUser {
   id: string;
@@ -11,9 +11,9 @@ export default class createUser {
   email: string;
 
   @IsNotEmpty()
+  @MinLength(6)
   password: string;
 
   emailVerified?: boolean;
-
   image?: string;
 }
