@@ -17,4 +17,16 @@ export class PrismaUserMapper {
       raw.id,
     );
   }
+
+  static toPrisma(user: User) {
+    return {
+      email: user.email,
+      name: user.name,
+      password: user.password,
+      emailVerified: user.emailVerified,
+      image: user.image,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
+    };
+  }
 }
