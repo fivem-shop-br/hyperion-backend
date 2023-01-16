@@ -48,6 +48,14 @@ export class User {
     return this.props.email;
   }
 
+  public set password(password: string) {
+    this.props.password = password;
+  }
+
+  public get password(): string {
+    return this.props.password;
+  }
+
   public set name(name: string) {
     this.props.name = name;
   }
