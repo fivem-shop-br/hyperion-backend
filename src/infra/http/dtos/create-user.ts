@@ -3,15 +3,15 @@ import { IsNotEmpty, IsEmail, Min } from 'class-validator';
 export default class createUser {
   id: string;
 
-  @IsNotEmpty({ message: 'name is empty' })
+  @IsNotEmpty()
   name: string;
 
-  @IsNotEmpty({ message: 'email is empty' })
+  @IsNotEmpty()
   @IsEmail()
-  @Min(6, { message: 'password is not 6 characters' })
+  @Min(6)
   email: string;
 
-  @IsNotEmpty({ message: 'password is empty' })
+  @IsNotEmpty()
   password: string;
 
   emailVerified?: boolean;

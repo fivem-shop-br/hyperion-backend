@@ -1,4 +1,4 @@
-import { HttpException, HttpCode } from '@nestjs/common';
+import { HttpException } from '@nestjs/common';
 import type { HttpStatus as propsHttpStatus } from '@nestjs/common';
 
 interface ErrorProps {
