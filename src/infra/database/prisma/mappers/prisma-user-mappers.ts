@@ -20,6 +20,7 @@ export class PrismaUserMapper {
 
   static toPrisma(user: User) {
     return {
+      id: user.userId,
       email: user.email,
       name: user.name,
       password: user.password,

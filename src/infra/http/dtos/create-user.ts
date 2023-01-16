@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsEmail, Min } from 'class-validator';
+import { IsNotEmpty, IsEmail } from 'class-validator';
 
 export default class createUser {
   id: string;
@@ -8,7 +8,6 @@ export default class createUser {
 
   @IsNotEmpty()
   @IsEmail()
-  @Min(6)
   email: string;
 
   @IsNotEmpty()

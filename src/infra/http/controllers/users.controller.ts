@@ -14,7 +14,9 @@ import { FindUserById } from 'src/app/use-cases/find-user';
 import { UserViewModel } from '../view-models/user-view-model';
 import createUser from '../dtos/create-user';
 import { CreateUser as CreateUserU } from '@app/use-cases/create-user';
+import { UpdateUser as updateUserU } from '@app/use-cases/update-user';
 import { User } from '@app/entities/user';
+import updateUser from '../dtos/update-user';
 
 @Controller()
 export class UsersController {
@@ -23,6 +25,7 @@ export class UsersController {
     private findAllUsers: FindAllUsers,
     private deleteUserById: DeleteUserById,
     private createUser: CreateUserU,
+    private updateUser: updateUserU,
   ) {}
 
   @Post('user')
@@ -45,10 +48,11 @@ export class UsersController {
     return UserViewModel.toHTTP(user);
   }
 
-  /* @Patch('user')
+  @Patch('user')
   update(@Body() data: updateUser) {
-    return this.usersService.update(data);
-  } */
+    const user = new User(data);
+    return this.updateUser.execute(user);
+  }
 
   @Delete('user')
   async delete(@Body() { id }: deleteUser) {
