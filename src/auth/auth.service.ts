@@ -7,6 +7,7 @@ import { UserPayload } from './models/UserPayload';
 import { UserToken } from './models/UserToken';
 import { Error } from 'src/utils/error.filter';
 import { HttpStatus } from '@nestjs/common/enums';
+import { Role } from './roles/role.enum';
 
 @Injectable()
 export class AuthService {
@@ -20,6 +21,7 @@ export class AuthService {
       sub: user.id,
       email: user.email,
       name: user.name,
+      roles: Role.User,
     };
 
     return {
