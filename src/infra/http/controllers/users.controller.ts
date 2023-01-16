@@ -20,6 +20,7 @@ import updateUser from '../dtos/update-user';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { Role } from 'src/auth/roles/role.enum';
 import { IsPublic } from 'src/auth/decorators/is-public.decorator';
+import { Throttle } from '@nestjs/throttler';
 
 @Controller()
 export class UsersController {
@@ -33,6 +34,7 @@ export class UsersController {
 
   @Post('user')
   @IsPublic()
+  @Throttle(1, 60 * 2)
   async create(@Body() data: createUser) {
     const user = new User(data);
     return await this.createUser.execute(user);

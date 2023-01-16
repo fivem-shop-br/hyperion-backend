@@ -5,8 +5,10 @@ import { AuthModule } from './auth/auth.module';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './auth/guards/roles.guard';
+import { ThrottlerModule } from '@nestjs/throttler/dist/throttler.module';
+import { CustomThrottlerGuard } from './auth/guards/teste.guard';
 @Module({
-  imports: [HttpModule, DatabaseModule, AuthModule],
+  imports: [HttpModule, DatabaseModule, AuthModule, ThrottlerModule.forRoot()],
   providers: [
     {
       provide: APP_GUARD,
@@ -15,6 +17,10 @@ import { RolesGuard } from './auth/guards/roles.guard';
     {
       provide: APP_GUARD,
       useClass: RolesGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: CustomThrottlerGuard,
     },
   ],
 })

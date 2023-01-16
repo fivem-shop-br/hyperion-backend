@@ -21,7 +21,7 @@ export class AuthService {
       sub: user.id,
       email: user.email,
       name: user.name,
-      roles: Role.User,
+      roles: Role.Admin,
     };
 
     return {
@@ -34,7 +34,7 @@ export class AuthService {
 
     if (!user) {
       throw new Error({
-        message: ['Email not found'],
+        message: ['Email não encontrado.'],
         statusCode: HttpStatus.NOT_FOUND,
       });
     }
@@ -43,7 +43,7 @@ export class AuthService {
     if (isPasswordValid) return new User(user);
     if (!isPasswordValid) {
       throw new Error({
-        message: ['Password is not valid'],
+        message: ['Senha incorreta.'],
         statusCode: HttpStatus.UNAUTHORIZED,
       });
     }
