@@ -3,6 +3,7 @@ import { User } from 'src/app/entities/user';
 import { UserRepository } from 'src/app/repositories/users-repository';
 import { PrismaUserMapper } from '../mappers/prisma-user-mappers';
 import { PrismaService } from '../prisma.service';
+import type { User as UserPrisma } from '@prisma/client';
 
 @Injectable()
 export class PrismaUserRepository implements UserRepository {
@@ -34,5 +35,24 @@ export class PrismaUserRepository implements UserRepository {
     });
 
     return PrismaUserMapper.toDomain(deleted);
+  }
+
+  async create(user: User): Promise<UserPrisma> {
+    const raw = PrismaUserMapper.toPrisma(user);
+
+    return await this.prisma.user.create({
+      data: raw,
+    });
+  }
+
+  async findByEmail(email: string): Promise<User> {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        email,
+      },
+    });
+
+    if (!user) return null;
+    return PrismaUserMapper.toDomain(user);
   }
 }

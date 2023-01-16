@@ -9,9 +9,12 @@ import {
   Param,
   Body,
 } from '@nestjs/common';
-import { FindUserById } from 'src/app/use-cases/find-user';
 import deleteUser from '../dtos/delete-user';
+import { FindUserById } from 'src/app/use-cases/find-user';
 import { UserViewModel } from '../view-models/user-view-model';
+import createUser from '../dtos/create-user';
+import { CreateUser as CreateUserU } from '@app/use-cases/create-user';
+import { User } from '@app/entities/user';
 
 @Controller()
 export class UsersController {
@@ -19,12 +22,14 @@ export class UsersController {
     private findUserById: FindUserById,
     private findAllUsers: FindAllUsers,
     private deleteUserById: DeleteUserById,
+    private createUser: CreateUserU,
   ) {}
 
-  /* @Post('user')
-  create(@Body() data: createUser) {
-    return this.usersService.create(data);
-  } */
+  @Post('user')
+  async create(@Body() data: createUser) {
+    const user = new User(data);
+    return await this.createUser.execute(user);
+  }
 
   @Get('users')
   async findAll() {
