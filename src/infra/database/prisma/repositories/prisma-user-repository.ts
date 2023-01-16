@@ -15,16 +15,24 @@ export class PrismaUserRepository implements UserRepository {
       },
     });
 
-    if (!user) {
-      return null;
-    }
-
+    if (!user) return null;
     return PrismaUserMapper.toDomain(user);
   }
 
   async findAll(): Promise<User[]> {
     const users = await this.prisma.user.findMany();
-
     return users.map(PrismaUserMapper.toDomain);
+  }
+
+  async delete(id: string): Promise<User> {
+    const user = await this.findById(id);
+    if (!user) return null;
+    const deleted = await this.prisma.user.delete({
+      where: {
+        id,
+      },
+    });
+
+    return PrismaUserMapper.toDomain(deleted);
   }
 }

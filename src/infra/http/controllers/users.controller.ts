@@ -1,3 +1,4 @@
+import { DeleteUserById } from '@app/use-cases/delete-user';
 import { FindAllUsers } from '@app/use-cases/find-users';
 import {
   Controller,
@@ -9,6 +10,7 @@ import {
   Body,
 } from '@nestjs/common';
 import { FindUserById } from 'src/app/use-cases/find-user';
+import deleteUser from '../dtos/delete-user';
 import { UserViewModel } from '../view-models/user-view-model';
 
 @Controller()
@@ -16,6 +18,7 @@ export class UsersController {
   constructor(
     private findUserById: FindUserById,
     private findAllUsers: FindAllUsers,
+    private deleteUserById: DeleteUserById,
   ) {}
 
   /* @Post('user')
@@ -34,17 +37,17 @@ export class UsersController {
   @Get('user/:id')
   async findById(@Param('id') id: string) {
     const { user } = await this.findUserById.execute({ id });
-
     return UserViewModel.toHTTP(user);
   }
 
   /* @Patch('user')
   update(@Body() data: updateUser) {
     return this.usersService.update(data);
-  }
+  } */
 
   @Delete('user')
-  delete(@Body() data: deleteUser) {
-    return this.usersService.delete(data);
-  } */
+  async delete(@Body() { id }: deleteUser) {
+    const { user } = await this.deleteUserById.execute({ id });
+    return UserViewModel.toHTTP(user);
+  }
 }
