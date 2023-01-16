@@ -1,9 +1,8 @@
+import { DatabaseModule } from '@infra/database/database.module';
+import { HttpModule } from '@infra/http/http.module';
 import { Module } from '@nestjs/common';
-import { usersModule } from './models/users/users.module';
 
 @Module({
-  imports: [usersModule],
-  controllers: [],
-  providers: [],
+  imports: [HttpModule, DatabaseModule],
 })
 export class AppModule {}
