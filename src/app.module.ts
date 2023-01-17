@@ -6,7 +6,8 @@ import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './auth/guards/roles.guard';
 import { ThrottlerModule } from '@nestjs/throttler/dist/throttler.module';
-import { CustomThrottlerGuard } from './auth/guards/teste.guard';
+import { CustomThrottlerGuard } from './auth/guards/throttler.guard';
+
 @Module({
   imports: [HttpModule, DatabaseModule, AuthModule, ThrottlerModule.forRoot()],
   providers: [

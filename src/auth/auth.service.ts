@@ -18,7 +18,7 @@ export class AuthService {
 
   async signIn(user: User): Promise<UserToken> {
     const payload: UserPayload = {
-      sub: user.id,
+      sub: user.userId,
       email: user.email,
       name: user.name,
       roles: Role.Admin,

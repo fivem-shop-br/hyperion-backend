@@ -7,6 +7,7 @@ import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
 import { LoginValidationMiddleware } from './middlewares/login-validation.middleware';
 import { DatabaseModule } from '@infra/database/database.module';
+import { FindUserById } from '@app/use-cases/find-user';
 
 @Module({
   imports: [
@@ -18,7 +19,7 @@ import { DatabaseModule } from '@infra/database/database.module';
     DatabaseModule,
   ],
   controllers: [AuthController],
-  providers: [AuthService, LocalStrategy, JwtStrategy],
+  providers: [AuthService, LocalStrategy, JwtStrategy, FindUserById],
 })
 export class AuthModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
