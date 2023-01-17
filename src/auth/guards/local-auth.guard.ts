@@ -1,6 +1,7 @@
 import { ExecutionContext, Injectable } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Error } from 'src/utils/error.filter';
+import { HttpStatus } from '@nestjs/common/enums';
 
 @Injectable()
 export class LocalAuthGuard extends AuthGuard('local') {
@@ -9,10 +10,18 @@ export class LocalAuthGuard extends AuthGuard('local') {
   }
 
   handleRequest(err, user) {
+    console.log(err, user);
     if (err || !user) {
+      if (err?.response.message) {
+        throw new Error({
+          message: err?.response.message,
+          statusCode: err?.response.statusCode,
+        });
+      }
+
       throw new Error({
-        message: err.response.message,
-        statusCode: err.response.statusCode,
+        message: ['Preecha os dados, email e senha.'],
+        statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
       });
     }
 
