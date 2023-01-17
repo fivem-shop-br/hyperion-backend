@@ -18,7 +18,7 @@ export class CreateUser {
 
     if (existUser) {
       throw new Error({
-        message: ['Email já existe.'],
+        message: 'Email já existe.',
         statusCode: HttpStatus.CONFLICT,
       });
     }

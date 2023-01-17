@@ -2,7 +2,7 @@ import { HttpException } from '@nestjs/common';
 import type { HttpStatus as propsHttpStatus } from '@nestjs/common';
 
 interface ErrorProps {
-  message: string[];
+  message: string;
   statusCode: propsHttpStatus;
 }
 

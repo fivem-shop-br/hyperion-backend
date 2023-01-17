@@ -19,7 +19,7 @@ export class LocalAuthGuard extends AuthGuard('local') {
       }
 
       throw new Error({
-        message: ['Preecha os dados, email e senha.'],
+        message: 'Preecha os dados, email e senha.',
         statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
       });
     }
