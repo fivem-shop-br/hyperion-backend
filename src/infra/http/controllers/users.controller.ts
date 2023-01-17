@@ -34,7 +34,7 @@ export class UsersController {
 
   @Post('user')
   @IsPublic()
-  @Throttle(1, 60 * 2)
+  @Throttle(5, 60 * 2)
   async create(@Body() data: createUser) {
     const user = new User(data);
     return await this.createUser.execute(user);
