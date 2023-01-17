@@ -1,21 +1,21 @@
-import { IsBoolean, IsEmail, IsNotEmpty } from 'class-validator';
+import { IsBoolean, IsEmail, IsNotEmpty, MinLength } from 'class-validator';
 
 export default class updateUser {
-  @IsNotEmpty({ message: 'id is empty' })
+  @IsNotEmpty({ message: 'Id não pode ser vazio.' })
   id: string;
 
-  @IsNotEmpty({ message: 'name is empty' })
+  @IsNotEmpty({ message: 'Name não pode ser vazio.' })
   name: string;
 
-  @IsNotEmpty({ message: 'email is empty' })
-  @IsEmail()
+  @IsNotEmpty({ message: 'Email não pode ser vazio.' })
+  @IsEmail({}, { message: 'Email precisa ser válido.' })
   email: string;
 
-  @IsNotEmpty({ message: 'password is empty' })
+  @IsNotEmpty({ message: 'Password não pode ser vazio.' })
+  @MinLength(6, { message: 'Password necessita de 6 characters.' })
   password: string;
 
-  @IsBoolean({ message: 'email verified not boolean' })
+  @IsBoolean()
   emailVerified?: boolean;
-
   image?: string;
 }

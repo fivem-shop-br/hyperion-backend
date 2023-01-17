@@ -1,5 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import { Replace } from 'src/helpers/Replace';
+import { hashSync } from 'bcrypt';
 
 export interface UserProps {
   id: string;
@@ -23,6 +24,7 @@ export class User {
     this._id = id ?? randomUUID();
     this.props = {
       ...props,
+      password: hashSync(props.password, 10),
       createdAt: props.createdAt ?? new Date(),
       updatedAt: props.updatedAt ?? new Date(),
     };

@@ -21,7 +21,7 @@ export class FindUserById {
 
     if (!user) {
       throw new Error({
-        message: ['User not found'],
+        message: ['Usuario não encontrado.'],
         statusCode: HttpStatus.NOT_FOUND,
       });
     }
