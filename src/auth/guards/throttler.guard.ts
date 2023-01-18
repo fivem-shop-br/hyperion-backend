@@ -6,9 +6,7 @@ export class CustomThrottlerGuard extends ThrottlerGuard {
   protected throwThrottlingException(res): void {
     const time = res.getResponse().getHeaders()['retry-after'];
     throw new Error({
-      message: [
-        `Você está fazendo muitas requisições aguarde ${time} segundos.`,
-      ],
+      message: `Acesso bloqueado por ${time} segundos, muitas tentativas.`,
       statusCode: HttpStatus.TOO_MANY_REQUESTS,
     });
   }

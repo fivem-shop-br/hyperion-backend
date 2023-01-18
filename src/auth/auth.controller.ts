@@ -17,6 +17,7 @@ import { Roles } from './decorators/roles.decorator';
 import { Role } from './roles/role.enum';
 import { FindUserById } from '@app/use-cases/find-user';
 import { UserViewModel } from '@infra/http/view-models/user-view-model';
+import { Throttle } from '@nestjs/throttler';
 
 @Controller()
 export class AuthController {
@@ -27,6 +28,7 @@ export class AuthController {
 
   @IsPublic()
   @UseGuards(LocalAuthGuard)
+  @Throttle(10, 60 * 2)
   @Post('signin')
   @HttpCode(HttpStatus.OK)
   async signIn(@Request() req: AuthRequest) {

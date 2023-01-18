@@ -23,7 +23,7 @@ export class DeleteUserById {
 
     if (!user) {
       throw new Error({
-        message: ['Usuario não encontrado.'],
+        message: 'Usuario não encontrado.',
         statusCode: HttpStatus.NOT_FOUND,
       });
     }

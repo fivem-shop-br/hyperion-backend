@@ -34,7 +34,7 @@ export class AuthService {
 
     if (!user) {
       throw new Error({
-        message: ['Email não encontrado.'],
+        message: 'Email não encontrado.',
         statusCode: HttpStatus.NOT_FOUND,
       });
     }
@@ -43,7 +43,7 @@ export class AuthService {
     if (isPasswordValid) return new User(user);
     if (!isPasswordValid) {
       throw new Error({
-        message: ['Senha incorreta.'],
+        message: 'E-mail ou senha inválidos.',
         statusCode: HttpStatus.UNAUTHORIZED,
       });
     }
