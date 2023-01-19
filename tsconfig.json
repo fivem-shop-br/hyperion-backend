@@ -17,13 +17,5 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "baseUrl": ".",
-    "paths": {
-      "@app/*": ["src/app/*"],
-      "@helpers/*": ["src/helpers/*"],
-      "@infra/*": ["src/infra/*"],
-      "@test/*": ["test/*"]
-    },
   },
-  "exclude": ["./dist/"],
-  "include": ["**/*"]
 }

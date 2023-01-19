@@ -1,8 +1,8 @@
-import { User } from '@app/entities/user';
+import { User } from '../entities/user';
 import { Injectable } from '@nestjs/common';
 import { UserRepository } from '../repositories/users-repository';
 import type { User as UserPrisma } from '@prisma/client';
-import { Error } from 'src/utils/error.filter';
+import { Error } from '../../utils/error.filter';
 import { HttpStatus } from '@nestjs/common/enums';
 
 type CreateUserRequest = User;

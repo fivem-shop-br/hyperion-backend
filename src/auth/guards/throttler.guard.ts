@@ -1,6 +1,6 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { ThrottlerGuard } from '@nestjs/throttler';
-import { Error } from 'src/utils/error.filter';
+import { Error } from '../../utils/error.filter';
 @Injectable()
 export class CustomThrottlerGuard extends ThrottlerGuard {
   protected throwThrottlingException(res): void {

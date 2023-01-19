@@ -1,5 +1,5 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
-import { Error } from 'src/utils/error.filter';
+import { Error } from '../../utils/error.filter';
 import { User } from '../entities/user';
 import { UserRepository } from '../repositories/users-repository';
 
