@@ -22,6 +22,8 @@
       "@helpers/*": ["src/helpers/*"],
       "@infra/*": ["src/infra/*"],
       "@test/*": ["test/*"]
-    }
-  }
+    },
+  },
+  "exclude": ["./dist/"],
+  "include": ["**/*"]
 }
