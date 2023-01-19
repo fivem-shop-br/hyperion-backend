@@ -1,6 +1,6 @@
 import * as bcrypt from 'bcrypt';
-import { User } from '@app/entities/user';
-import { UserRepository } from '@app/repositories/users-repository';
+import { User } from '../app/entities/user';
+import { UserRepository } from '../app/repositories/users-repository';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserPayload } from './models/UserPayload';
