@@ -6,8 +6,8 @@ import { AuthService } from './auth.service';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
 import { LoginValidationMiddleware } from './middlewares/login-validation.middleware';
-import { DatabaseModule } from '@infra/database/database.module';
-import { FindUserById } from '@app/use-cases/find-user';
+import { DatabaseModule } from '../infra/database/database.module';
+import { FindUserById } from '../app/use-cases/find-user';
 
 @Module({
   imports: [

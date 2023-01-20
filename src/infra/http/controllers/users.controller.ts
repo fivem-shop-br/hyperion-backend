@@ -1,5 +1,5 @@
-import { DeleteUserById } from '@app/use-cases/delete-user';
-import { FindAllUsers } from '@app/use-cases/find-users';
+import { DeleteUserById } from '../../../app/use-cases/delete-user';
+import { FindAllUsers } from '../../../app/use-cases/find-users';
 import {
   Controller,
   Delete,
@@ -12,14 +12,14 @@ import {
 import deleteUser from '../dtos/delete-user';
 import updateUser from '../dtos/update-user';
 import createUser from '../dtos/create-user';
-import { FindUserById } from 'src/app/use-cases/find-user';
+import { FindUserById } from '../../../app/use-cases/find-user';
 import { UserViewModel } from '../view-models/user-view-model';
-import { CreateUser as CreateUserU } from '@app/use-cases/create-user';
-import { UpdateUser as updateUserU } from '@app/use-cases/update-user';
-import { User } from '@app/entities/user';
-import { Roles } from 'src/auth/decorators/roles.decorator';
-import { Role } from 'src/auth/roles/role.enum';
-import { IsPublic } from 'src/auth/decorators/is-public.decorator';
+import { CreateUser as CreateUserU } from '../../../app/use-cases/create-user';
+import { UpdateUser as updateUserU } from '../../../app/use-cases/update-user';
+import { User } from '../../../app/entities/user';
+import { Roles } from '../../../auth/decorators/roles.decorator';
+import { Role } from '../../../auth/roles/role.enum';
+import { IsPublic } from '../../../auth/decorators/is-public.decorator';
 import { Throttle } from '@nestjs/throttler';
 
 @Controller()

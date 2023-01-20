@@ -1,6 +1,6 @@
 import { ExecutionContext, Injectable } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { Error } from 'src/utils/error.filter';
+import { Error } from '../../utils/error.filter';
 import { HttpStatus } from '@nestjs/common/enums';
 
 @Injectable()

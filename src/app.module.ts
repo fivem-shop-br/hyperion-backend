@@ -1,5 +1,5 @@
-import { DatabaseModule } from '@infra/database/database.module';
-import { HttpModule } from '@infra/http/http.module';
+import { DatabaseModule } from './infra/database/database.module';
+import { HttpModule } from './infra/http/http.module';
 import { Module } from '@nestjs/common';
 import { AuthModule } from './auth/auth.module';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
