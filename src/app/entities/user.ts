@@ -5,12 +5,12 @@ import { hashSync } from 'bcrypt';
 export interface UserProps {
   id: string;
   email: string;
-  password: string;
+  password?: string;
   name: string;
   emailVerified?: boolean;
   image?: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export class User {
@@ -24,7 +24,7 @@ export class User {
     this._id = id ?? randomUUID();
     this.props = {
       ...props,
-      password: hashSync(props.password, 10),
+      password: props.password && hashSync(props.password, 10),
       createdAt: props.createdAt ?? new Date(),
       updatedAt: props.updatedAt ?? new Date(),
     };

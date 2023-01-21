@@ -6,6 +6,7 @@ import {
   Get,
   Request,
   UseGuards,
+  Patch,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guards/local-auth.guard';
@@ -18,12 +19,21 @@ import { Role } from './roles/role.enum';
 import { FindUserById } from '../app/use-cases/find-user';
 import { UserViewModel } from '../infra/http/view-models/user-view-model';
 import { Throttle } from '@nestjs/throttler';
+import { UpdateUser } from 'src/app/use-cases/update-user';
+import { UserFromJwt } from './models/UserFromJwt';
+import updateMe from './dtos/update-me';
+
+interface updateMeProps {
+  user: UserFromJwt;
+  body: updateMe;
+}
 
 @Controller()
 export class AuthController {
   constructor(
     private authService: AuthService,
     private findUserById: FindUserById,
+    private updateUser: UpdateUser,
   ) {}
 
   @IsPublic()
@@ -40,5 +50,10 @@ export class AuthController {
   async getMe(@CurrentUser() { id }: User) {
     const { user } = await this.findUserById.execute({ id });
     return UserViewModel.toHTTP(user);
+  }
+
+  @Patch('me')
+  async updateMe(@Request() { user, body }: updateMeProps) {
+    return await this.updateUser.execute(new User({ ...user, ...body }));
   }
 }
