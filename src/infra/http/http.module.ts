@@ -6,16 +6,19 @@ import { DatabaseModule } from '../database/database.module';
 import { Module } from '@nestjs/common';
 import { FindUserById } from '../../app/use-cases/find-user';
 import { UsersController } from './controllers/users.controller';
+import { FindShopsByOwner } from 'src/app/use-cases/find-shops';
+import { ShopController } from './controllers/shop.controller';
 
 @Module({
   imports: [DatabaseModule],
-  controllers: [UsersController],
+  controllers: [UsersController, ShopController],
   providers: [
     FindUserById,
     FindAllUsers,
     DeleteUserById,
     CreateUser,
     UpdateUser,
+    FindShopsByOwner,
   ],
 })
 export class HttpModule {}
