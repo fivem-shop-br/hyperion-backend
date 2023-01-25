@@ -1,27 +1,12 @@
-import {
-  IsBoolean,
-  IsEmail,
-  IsNotEmpty,
-  MinLength,
-  IsOptional,
-} from 'class-validator';
+import { IsEmpty } from 'class-validator';
 
 export default class updateMe {
-  @IsNotEmpty({ message: 'Id não pode ser vazio.' })
+  @IsEmpty({ message: 'id não pode ser alterado aqui.' })
   id: string;
 
-  @IsNotEmpty({ message: 'Name não pode ser vazio.' })
-  name: string;
-
-  @IsNotEmpty({ message: 'Email não pode ser vazio.' })
-  @IsEmail({}, { message: 'Email precisa ser válido.' })
+  @IsEmpty({ message: 'email não pode ser alterado aqui.' })
   email: string;
 
-  @IsOptional()
-  @MinLength(6, { message: 'Password necessita de 6 characters.' })
+  @IsEmpty({ message: 'password não pode ser alterado aqui.' })
   password: string;
-
-  @IsBoolean()
-  emailVerified?: boolean;
-  image?: string;
 }
