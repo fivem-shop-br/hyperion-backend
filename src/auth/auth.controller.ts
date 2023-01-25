@@ -22,6 +22,8 @@ import { Throttle } from '@nestjs/throttler';
 import { UpdateUser } from 'src/app/use-cases/update-user';
 import { UserFromJwt } from './models/UserFromJwt';
 import updateMe from './dtos/update-me';
+import { validate } from 'class-validator';
+import { Error } from 'src/utils/error.filter';
 
 interface updateMeProps {
   user: UserFromJwt;
@@ -54,6 +56,19 @@ export class AuthController {
 
   @Patch('me')
   async updateMe(@Request() { user, body }: updateMeProps) {
+    const update = new updateMe();
+
+    Object.keys(body).forEach((item) => {
+      update[item] = body[item];
+    });
+
+    const validates = await validate(update);
+    if (validates.length)
+      throw new Error({
+        message: validates.map((index) => index.constraints),
+        statusCode: 400,
+      });
+
     return await this.updateUser.execute(new User({ ...user, ...body }));
   }
 }

@@ -15,7 +15,7 @@ export default class updateUser {
   @MinLength(6, { message: 'Password necessita de 6 characters.' })
   password: string;
 
-  @IsBoolean()
+  @IsBoolean({ message: 'emailVerified é um valor boleano' })
   emailVerified?: boolean;
   image?: string;
 }
