@@ -3,7 +3,6 @@ import { Replace } from 'src/helpers/Replace';
 
 export interface ShopsProps {
   id: string;
-  owner_id: string;
   slug: string;
   name: string;
   description?: string;
@@ -60,14 +59,6 @@ export class Shop {
 
   public get name(): string {
     return this.props.name;
-  }
-
-  public set owner_id(owner_id: string) {
-    this.props.owner_id = owner_id;
-  }
-
-  public get owner_id(): string {
-    return this.props.owner_id;
   }
 
   public set description(description: string) {

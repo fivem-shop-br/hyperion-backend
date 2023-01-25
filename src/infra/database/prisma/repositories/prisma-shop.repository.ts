@@ -7,10 +7,13 @@ import { PrismaService } from '../prisma.service';
 export class PrismaShopRepository implements ShopRepository {
   constructor(private prisma: PrismaService) {}
 
-  async findByOwner(owner_id: string): Promise<Shop[]> {
-    const shops = await this.prisma.shop.findMany({
+  async findByUser(id: string): Promise<Shop[]> {
+    const { shops } = await this.prisma.user.findUnique({
       where: {
-        owner_id,
+        id,
+      },
+      include: {
+        shops: true,
       },
     });
 

@@ -2,23 +2,23 @@ import { Injectable } from '@nestjs/common';
 import { Shop } from '../entities/shop';
 import { ShopRepository } from '../repositories/shops-repository';
 
-interface findShopsByOwnerRequest {
-  owner: string;
+interface findShopsByUserRequest {
+  user: string;
 }
 
-export interface findShopsByOwnerResponse {
+export interface findShopsByUserResponse {
   shop: Shop[];
 }
 
 @Injectable()
-export class FindShopsByOwner {
+export class FindShopsByUser {
   constructor(private shopRepository: ShopRepository) {}
 
   async execute(
-    request: findShopsByOwnerRequest,
-  ): Promise<findShopsByOwnerResponse> {
-    const { owner } = request;
-    const shop = await this.shopRepository.findByOwner(owner);
+    request: findShopsByUserRequest,
+  ): Promise<findShopsByUserResponse> {
+    const { user } = request;
+    const shop = await this.shopRepository.findByUser(user);
 
     return {
       shop,
