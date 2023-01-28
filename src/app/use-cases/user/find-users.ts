@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { User } from '../entities/user';
-import { UserRepository } from '../repositories/users-repository';
+import { User } from '../../entities/user';
+import { UserRepository } from '../../repositories/users-repository';
 
 export interface findAllUsersResponse {
   users: User[];

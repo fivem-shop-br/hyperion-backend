@@ -1,10 +1,10 @@
-import { FindShopsByUser } from 'src/app/use-cases/find-shops';
+import { FindShopsByUser } from 'src/app/use-cases/shop/find-shops';
 import { Get, Controller, Request } from '@nestjs/common';
 import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
 import { User } from '@prisma/client';
 import { ShopViewModel } from '../view-models/shop-view-model';
 import { UserFromJwt } from 'src/auth/models/UserFromJwt';
-import { FindShopById } from 'src/app/use-cases/find-shop';
+import { FindShopById } from 'src/app/use-cases/shop/find-shop';
 
 interface findByIdProps {
   user: UserFromJwt;

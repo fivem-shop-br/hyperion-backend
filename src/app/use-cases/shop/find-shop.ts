@@ -1,7 +1,7 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { Error } from 'src/utils/error.filter';
-import { Shop } from '../entities/shop';
-import { ShopRepository } from '../repositories/shops-repository';
+import { Shop } from '../../entities/shop';
+import { ShopRepository } from '../../repositories/shops-repository';
 
 interface findShopByIdRequest {
   userId: string;

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { Shop } from '../entities/shop';
-import { ShopRepository } from '../repositories/shops-repository';
+import { Shop } from '../../entities/shop';
+import { ShopRepository } from '../../repositories/shops-repository';
 
 interface findShopsByUserRequest {
   user: string;
