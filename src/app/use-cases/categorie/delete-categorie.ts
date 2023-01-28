@@ -21,12 +21,11 @@ export class DeleteCategorieById {
     const { id } = request;
     const categorie = await this.categorieRepository.delete(id);
 
-    if (!categorie) {
+    if (!categorie)
       throw new Error({
         message: 'Categoria não encontrada.',
         statusCode: HttpStatus.NOT_FOUND,
       });
-    }
 
     return {
       categorie,

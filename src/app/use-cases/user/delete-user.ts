@@ -21,12 +21,11 @@ export class DeleteUserById {
     const { id } = request;
     const user = await this.userRepository.delete(id);
 
-    if (!user) {
+    if (!user)
       throw new Error({
         message: 'Usuario não encontrado.',
         statusCode: HttpStatus.NOT_FOUND,
       });
-    }
 
     return {
       user,

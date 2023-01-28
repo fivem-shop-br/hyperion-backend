@@ -32,20 +32,18 @@ export class AuthService {
   async validateUser(email: string, password: string): Promise<User> {
     const user = await this.userRepository.findByEmail(email);
 
-    if (!user) {
+    if (!user)
       throw new Error({
         message: 'Email não encontrado.',
         statusCode: HttpStatus.NOT_FOUND,
       });
-    }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (isPasswordValid) return new User(user);
-    if (!isPasswordValid) {
+    if (!isPasswordValid)
       throw new Error({
         message: 'E-mail ou senha inválidos.',
         statusCode: HttpStatus.UNAUTHORIZED,
       });
-    }
   }
 }

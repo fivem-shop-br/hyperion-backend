@@ -16,12 +16,11 @@ export class CreateUser {
     const { email } = request;
     const existUser = await this.userRepository.findByEmail(email);
 
-    if (existUser) {
+    if (existUser)
       throw new Error({
         message: 'Esse email já foi cadastrado.',
         statusCode: HttpStatus.CONFLICT,
       });
-    }
 
     return await this.userRepository.create(request);
   }

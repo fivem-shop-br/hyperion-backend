@@ -16,12 +16,11 @@ export class UpdateUser {
     const { userId: id } = request;
     const user = await this.userRepository.findById(id);
 
-    if (!user) {
+    if (!user)
       throw new Error({
         message: 'Usuario não encontrado.',
         statusCode: HttpStatus.NOT_FOUND,
       });
-    }
 
     return await this.userRepository.update(request);
   }
