@@ -1,16 +1,42 @@
 import { FindShopsByUser } from 'src/app/use-cases/find-shops';
-import { Get, Controller } from '@nestjs/common';
+import { Get, Controller, Request } from '@nestjs/common';
 import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
 import { User } from '@prisma/client';
 import { ShopViewModel } from '../view-models/shop-view-model';
+import { UserFromJwt } from 'src/auth/models/UserFromJwt';
+import { FindShopById } from 'src/app/use-cases/find-shop';
 
-@Controller('shop')
+interface findByIdProps {
+  user: UserFromJwt;
+  params: {
+    id: string;
+  };
+}
+
+@Controller()
 export class ShopController {
-  constructor(private findShopByUser: FindShopsByUser) {}
+  constructor(
+    private findShopByUser: FindShopsByUser,
+    private findShopById: FindShopById,
+  ) {}
 
-  @Get()
-  async getShops(@CurrentUser() { id: user }: User) {
+  @Get('shops')
+  async findAll(@CurrentUser() { id: user }: User) {
     const { shop } = await this.findShopByUser.execute({ user });
     return shop.map(ShopViewModel.toHTTP);
+  }
+
+  @Get('shop/:id')
+  async findById(
+    @Request() { user: { id: userId }, params: { id: shopId } }: findByIdProps,
+  ) {
+    const { shop } = await this.findShopById.execute({ userId, shopId });
+
+    return ShopViewModel.toHTTP(shop);
+
+    /* const { shop } = await this.findShopByUser.execute({ user: userId });
+
+    const findById = shop.find((index) => index.id === shopId);
+    if (findById) return ShopViewModel.toHTTP(findById); */
   }
 }

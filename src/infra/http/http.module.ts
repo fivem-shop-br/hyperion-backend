@@ -8,6 +8,7 @@ import { FindUserById } from '../../app/use-cases/find-user';
 import { UsersController } from './controllers/users.controller';
 import { FindShopsByUser } from 'src/app/use-cases/find-shops';
 import { ShopController } from './controllers/shop.controller';
+import { FindShopById } from 'src/app/use-cases/find-shop';
 
 @Module({
   imports: [DatabaseModule],
@@ -19,6 +20,7 @@ import { ShopController } from './controllers/shop.controller';
     CreateUser,
     UpdateUser,
     FindShopsByUser,
+    FindShopById,
   ],
 })
 export class HttpModule {}
