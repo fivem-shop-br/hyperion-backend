@@ -15,15 +15,14 @@ export class UpdateCategorie {
   async execute(
     request: UpdateCategorieRequest,
   ): Promise<UpdateCategorieResponse> {
-    const { name } = request;
-    const categorie = await this.categorieRepository.findByName(name);
+    const { name, shop_slug: slug } = request;
+    const categorie = await this.categorieRepository.findByName(name, slug);
 
-    if (!categorie) {
+    if (!categorie)
       throw new Error({
         message: 'Categoria não encontrado.',
         statusCode: HttpStatus.NOT_FOUND,
       });
-    }
 
     return await this.categorieRepository.update(request);
   }
