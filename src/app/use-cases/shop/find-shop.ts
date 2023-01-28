@@ -20,12 +20,11 @@ export class FindShopById {
     const { shopId, userId } = request;
     const shop = await this.shopRepository.findById(userId, shopId);
 
-    if (!shop) {
+    if (!shop)
       throw new Error({
         message: 'Shop não encontrado.',
         statusCode: HttpStatus.NOT_FOUND,
       });
-    }
 
     return {
       shop,
