@@ -13,8 +13,8 @@ export interface ShopsProps {
   secondary_color?: string;
   domain: string;
   plan: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export class Shop {

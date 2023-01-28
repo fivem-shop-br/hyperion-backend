@@ -5,8 +5,8 @@ export interface CategorieProps {
   id: string;
   shop_slug: string;
   name: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export class Categorie {
