@@ -15,8 +15,8 @@ export class UpdateCategorie {
   async execute(
     request: UpdateCategorieRequest,
   ): Promise<UpdateCategorieResponse> {
-    const { name, shop_slug: slug } = request;
-    const categorie = await this.categorieRepository.findByName(name, slug);
+    const { name, shop_id: id } = request;
+    const categorie = await this.categorieRepository.findByName(name, id);
 
     if (!categorie)
       throw new Error({

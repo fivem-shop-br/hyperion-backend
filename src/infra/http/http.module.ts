@@ -10,7 +10,7 @@ import { FindShopsByUser } from 'src/app/use-cases/shop/find-shops';
 import { ShopController } from './controllers/shop.controller';
 import { FindShopById } from 'src/app/use-cases/shop/find-shop';
 import { CategoriesController } from './controllers/categories.controller';
-import { FindAllBySlugCategorie } from 'src/app/use-cases/categorie/find-categories';
+import { FindAllByIdCategorie } from 'src/app/use-cases/categorie/find-categories';
 import { CreateCategorie } from 'src/app/use-cases/categorie/create-categorie';
 import { DeleteCategorieById } from 'src/app/use-cases/categorie/delete-categorie';
 
@@ -25,7 +25,7 @@ import { DeleteCategorieById } from 'src/app/use-cases/categorie/delete-categori
     UpdateUser,
     FindShopsByUser,
     FindShopById,
-    FindAllBySlugCategorie,
+    FindAllByIdCategorie,
     CreateCategorie,
     DeleteCategorieById,
   ],

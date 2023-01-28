@@ -8,7 +8,7 @@ import {
   Post,
 } from '@nestjs/common/decorators';
 import { Categorie } from 'src/app/entities/categorie';
-import { FindAllBySlugCategorie } from 'src/app/use-cases/categorie/find-categories';
+import { FindAllByIdCategorie } from 'src/app/use-cases/categorie/find-categories';
 import { CreateCategorie as CreateCategorieU } from 'src/app/use-cases/categorie/create-categorie';
 import createCategorie from '../dtos/create-categorie';
 import { CategorieViewModel } from '../view-models/categories-view-model';
@@ -18,14 +18,14 @@ import { DeleteCategorieById } from 'src/app/use-cases/categorie/delete-categori
 @Controller()
 export class CategoriesController {
   constructor(
-    private findAllBySlug: FindAllBySlugCategorie,
+    private findAllById: FindAllByIdCategorie,
     private createCategorie: CreateCategorieU,
     private deleteCategorieById: DeleteCategorieById,
   ) {}
 
-  @Get('categories/:slug')
-  async findAll(@Param() { slug }: { slug: string }) {
-    const { categorie } = await this.findAllBySlug.execute(slug);
+  @Get('categories/:id')
+  async findAll(@Param() { id }: { id: string }) {
+    const { categorie } = await this.findAllById.execute(id);
     return categorie.map(CategorieViewModel.toHTTP);
   }
 

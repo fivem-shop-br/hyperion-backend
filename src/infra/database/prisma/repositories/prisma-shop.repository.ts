@@ -22,7 +22,7 @@ export class PrismaShopRepository implements ShopRepository {
     return shops.map(PrismaShopMapper.toDomain);
   }
 
-  async findById(userId: string, shopId: string): Promise<Shop> {
+  async findByUserId(userId: string, shopId: string): Promise<Shop> {
     const { shops: shop } = await this.prisma.user.findUnique({
       where: {
         id: userId,
@@ -38,5 +38,16 @@ export class PrismaShopRepository implements ShopRepository {
 
     if (!shop.length) return null;
     return PrismaShopMapper.toDomain(shop[0]);
+  }
+
+  async findById(id: string): Promise<Shop> {
+    const shop = await this.prisma.shop.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    if (!shop) return null;
+    return PrismaShopMapper.toDomain(shop);
   }
 }

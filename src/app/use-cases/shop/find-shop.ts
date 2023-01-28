@@ -18,7 +18,7 @@ export class FindShopById {
 
   async execute(request: findShopByIdRequest): Promise<findShopByIdResponse> {
     const { shopId, userId } = request;
-    const shop = await this.shopRepository.findById(userId, shopId);
+    const shop = await this.shopRepository.findByUserId(userId, shopId);
 
     if (!shop)
       throw new Error({

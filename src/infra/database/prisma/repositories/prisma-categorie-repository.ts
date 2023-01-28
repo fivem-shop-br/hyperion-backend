@@ -8,20 +8,20 @@ import { PrismaService } from '../prisma.service';
 @Injectable()
 export class PrismaCategorieRepository implements CategorieRepository {
   constructor(private prisma: PrismaService) {}
-  async findAllBySlug(shop_slug: string): Promise<Categorie[]> {
+  async findAllById(shop_id: string): Promise<Categorie[]> {
     const categories = await this.prisma.categories.findMany({
       where: {
-        shop_slug,
+        shop_id,
       },
     });
     return categories.map(PrismaCategorieMapper.toDomain);
   }
 
-  async findByName(name: string, shop_slug: string): Promise<Categorie> {
+  async findByName(name: string, shop_id: string): Promise<Categorie> {
     const categorie = await this.prisma.categories.findFirst({
       where: {
         name,
-        shop_slug,
+        shop_id,
       },
     });
 
@@ -49,7 +49,9 @@ export class PrismaCategorieRepository implements CategorieRepository {
   }
 
   async delete(id: string): Promise<Categorie> {
-    const categorie = await this.findById(id);
+    const categorie = await this.findByCategorieId(id);
+    console.log(categorie);
+
     if (!categorie) return null;
     const deleted = await this.prisma.categories.delete({
       where: {
@@ -60,10 +62,10 @@ export class PrismaCategorieRepository implements CategorieRepository {
     return PrismaCategorieMapper.toDomain(deleted);
   }
 
-  async findById(id: string): Promise<Categorie> {
-    const categorie = await this.prisma.categories.findUnique({
+  async findByShopId(shop_id: string): Promise<Categorie> {
+    const categorie = await this.prisma.categories.findFirst({
       where: {
-        id,
+        shop_id,
       },
     });
 
@@ -71,10 +73,10 @@ export class PrismaCategorieRepository implements CategorieRepository {
     return PrismaCategorieMapper.toDomain(categorie);
   }
 
-  async findBySlug(shop_slug: string): Promise<Categorie> {
+  async findByCategorieId(id: string): Promise<Categorie> {
     const categorie = await this.prisma.categories.findFirst({
       where: {
-        shop_slug,
+        id,
       },
     });
 
