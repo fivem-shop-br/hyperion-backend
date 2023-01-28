@@ -31,12 +31,6 @@ export class ShopController {
     @Request() { user: { id: userId }, params: { id: shopId } }: findByIdProps,
   ) {
     const { shop } = await this.findShopById.execute({ userId, shopId });
-
     return ShopViewModel.toHTTP(shop);
-
-    /* const { shop } = await this.findShopByUser.execute({ user: userId });
-
-    const findById = shop.find((index) => index.id === shopId);
-    if (findById) return ShopViewModel.toHTTP(findById); */
   }
 }
