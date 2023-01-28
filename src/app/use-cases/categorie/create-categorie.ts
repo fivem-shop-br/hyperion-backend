@@ -15,15 +15,25 @@ export class CreateCategorie {
   async execute(
     request: CreateCategorieRequest,
   ): Promise<CreateCategorieResponse> {
-    const { name } = request;
-    const existCategorie = await this.categorieRepository.findByName(name);
+    const { name, shop_slug: slug } = request;
+    const existSlug = await this.categorieRepository.findBySlug(slug);
 
-    if (existCategorie) {
+    if (!existSlug)
+      throw new Error({
+        message: 'Essa shop_slug não existe.',
+        statusCode: HttpStatus.CONFLICT,
+      });
+
+    const existCategorie = await this.categorieRepository.findByName(
+      name,
+      slug,
+    );
+
+    if (existCategorie)
       throw new Error({
         message: 'Essa categoria já foi cadastrada.',
         statusCode: HttpStatus.CONFLICT,
       });
-    }
 
     return await this.categorieRepository.create(request);
   }
