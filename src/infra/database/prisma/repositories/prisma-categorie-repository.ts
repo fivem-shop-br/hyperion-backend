@@ -50,7 +50,6 @@ export class PrismaCategorieRepository implements CategorieRepository {
 
   async delete(id: string): Promise<Categorie> {
     const categorie = await this.findByCategorieId(id);
-    console.log(categorie);
 
     if (!categorie) return null;
     const deleted = await this.prisma.categories.delete({

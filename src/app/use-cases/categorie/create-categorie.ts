@@ -22,8 +22,6 @@ export class CreateCategorie {
     const { name, shop_id } = request;
     const existShopId = await this.shopRepository.findById(shop_id);
 
-    console.log(existShopId);
-
     if (!existShopId)
       throw new Error({
         message: 'Essa shop_id não existe.',
