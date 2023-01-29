@@ -1,7 +1,7 @@
 import { randomUUID } from 'crypto';
 import { Replace } from 'src/helpers/Replace';
 
-export interface CategorieProps {
+export interface CategoryProps {
   id: string;
   shop_id?: string;
   name: string;
@@ -9,12 +9,12 @@ export interface CategorieProps {
   updatedAt?: Date;
 }
 
-export class Categorie {
+export class Category {
   private _id: string;
-  private props: CategorieProps;
+  private props: CategoryProps;
 
   constructor(
-    props: Replace<CategorieProps, { createdAt?: Date; updatedAt?: Date }>,
+    props: Replace<CategoryProps, { createdAt?: Date; updatedAt?: Date }>,
     id?: string,
   ) {
     this._id = id ?? randomUUID();
@@ -27,11 +27,11 @@ export class Categorie {
     return this._id;
   }
 
-  public set categorieId(categorieId: string) {
-    this.props.id = categorieId;
+  public set categoryId(categoryId: string) {
+    this.props.id = categoryId;
   }
 
-  public get categorieId(): string {
+  public get categoryId(): string {
     return this.props.id;
   }
 

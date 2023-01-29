@@ -7,45 +7,45 @@ import {
   Patch,
   Post,
 } from '@nestjs/common/decorators';
-import { Categorie } from 'src/app/entities/categorie';
-import { FindAllByIdCategorie } from 'src/app/use-cases/categorie/find-categories';
-import { CreateCategorie as CreateCategorieU } from 'src/app/use-cases/categorie/create-categorie';
-import createCategorie from '../dtos/create-categorie';
-import { CategorieViewModel } from '../view-models/categories-view-model';
-import { DeleteCategorieById } from 'src/app/use-cases/categorie/delete-categorie';
-import { UpdateCategorie as UpdateCategorieU } from 'src/app/use-cases/categorie/update-categorie';
-import updateCategorie from '../dtos/update-categorie';
+import { Category } from 'src/app/entities/category';
+import { FindAllByIdCategory } from 'src/app/use-cases/category/find-categories';
+import { CreateCategory as CreateCategoryU } from 'src/app/use-cases/category/create-category';
+import createCategory from '../dtos/create-category';
+import { CategoryViewModel } from '../view-models/categories-view-model';
+import { DeleteCategoryById } from 'src/app/use-cases/category/delete-category';
+import { UpdateCategory as UpdateCategoryU } from 'src/app/use-cases/category/update-category';
+import updateCategory from '../dtos/update-category';
 
 @Controller()
-export class CategoriesController {
+export class CategorysController {
   constructor(
-    private findAllById: FindAllByIdCategorie,
-    private createCategorie: CreateCategorieU,
-    private deleteCategorieById: DeleteCategorieById,
-    private updateCategorie: UpdateCategorieU,
+    private findAllById: FindAllByIdCategory,
+    private createCategory: CreateCategoryU,
+    private deleteCategoryById: DeleteCategoryById,
+    private updateCategory: UpdateCategoryU,
   ) {}
 
-  @Get('categories/:id')
+  @Get('categorys/:id')
   async findAll(@Param() { id }: { id: string }) {
-    const { categorie } = await this.findAllById.execute(id);
-    return categorie.map(CategorieViewModel.toHTTP);
+    const { category } = await this.findAllById.execute(id);
+    return category.map(CategoryViewModel.toHTTP);
   }
 
-  @Post('categorie')
-  async create(@Body() data: createCategorie) {
-    const categorie = new Categorie(data);
-    return await this.createCategorie.execute(categorie);
+  @Post('category')
+  async create(@Body() data: createCategory) {
+    const category = new Category(data);
+    return await this.createCategory.execute(category);
   }
 
-  @Patch('categorie')
-  async update(@Body() data: updateCategorie) {
-    const categorie = new Categorie(data);
-    return await this.updateCategorie.execute(categorie);
+  @Patch('category')
+  async update(@Body() data: updateCategory) {
+    const category = new Category(data);
+    return await this.updateCategory.execute(category);
   }
 
-  @Delete('categorie/:id')
+  @Delete('category/:id')
   async delete(@Param() { id }: { id: string }) {
-    const { categorie } = await this.deleteCategorieById.execute({ id });
-    return CategorieViewModel.toHTTP(categorie);
+    const { category } = await this.deleteCategoryById.execute({ id });
+    return CategoryViewModel.toHTTP(category);
   }
 }

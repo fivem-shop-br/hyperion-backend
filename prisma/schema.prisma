@@ -33,7 +33,7 @@ model Shop {
   secondary_color String?
   domain          String
   plan            String
-  categories      Categories[]
+  categorys       Categories[]
   createdAt       DateTime     @default(now())
   updatedAt       DateTime     @updatedAt
 }
@@ -54,7 +54,7 @@ model Products {
   name        String
   image       String?
   price       Int
-  categoty    Categories @relation(fields: [category_id], references: [id])
+  category    Categories @relation(fields: [category_id], references: [id])
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
 }
