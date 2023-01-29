@@ -3,7 +3,7 @@ import { Replace } from 'src/helpers/Replace';
 
 export interface CategorieProps {
   id: string;
-  shop_id: string;
+  shop_id?: string;
   name: string;
   createdAt?: Date;
   updatedAt?: Date;
