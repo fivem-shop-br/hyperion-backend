@@ -1,8 +1,8 @@
-import { User } from '../entities/user';
+import { User } from '../../entities/user';
 import { Injectable } from '@nestjs/common';
-import { UserRepository } from '../repositories/users-repository';
+import { UserRepository } from '../../repositories/users-repository';
 import type { User as UserPrisma } from '@prisma/client';
-import { Error } from '../../utils/error.filter';
+import { Error } from '../../../utils/error.filter';
 import { HttpStatus } from '@nestjs/common/enums';
 
 type CreateUserRequest = User;
@@ -16,12 +16,11 @@ export class CreateUser {
     const { email } = request;
     const existUser = await this.userRepository.findByEmail(email);
 
-    if (existUser) {
+    if (existUser)
       throw new Error({
         message: 'Esse email já foi cadastrado.',
         statusCode: HttpStatus.CONFLICT,
       });
-    }
 
     return await this.userRepository.create(request);
   }

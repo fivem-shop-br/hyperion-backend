@@ -7,9 +7,16 @@ import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './auth/guards/roles.guard';
 import { ThrottlerModule } from '@nestjs/throttler/dist/throttler.module';
 import { CustomThrottlerGuard } from './auth/guards/throttler.guard';
+import { WebSocketsModule } from './infra/websockets/websockets.module';
 
 @Module({
-  imports: [HttpModule, DatabaseModule, AuthModule, ThrottlerModule.forRoot()],
+  imports: [
+    WebSocketsModule,
+    HttpModule,
+    DatabaseModule,
+    AuthModule,
+    ThrottlerModule.forRoot(),
+  ],
   providers: [
     {
       provide: APP_GUARD,

@@ -3,15 +3,15 @@ import { IsNotEmpty, IsEmail, MinLength } from 'class-validator';
 export default class createUser {
   id: string;
 
-  @IsNotEmpty({ message: 'Nome não pode ser vazio.' })
+  @IsNotEmpty({ message: 'name não pode ser vazio.' })
   name: string;
 
-  @IsNotEmpty({ message: 'Email não pode ser vazio.' })
-  @IsEmail({}, { message: 'Email precisa ser válido.' })
+  @IsNotEmpty({ message: 'email não pode ser vazio.' })
+  @IsEmail({}, { message: 'email precisa ser válido.' })
   email: string;
 
-  @IsNotEmpty({ message: 'Password não pode ser vazia.' })
-  @MinLength(6, { message: 'Password necessita de 6 characters.' })
+  @IsNotEmpty({ message: 'password não pode ser vazia.' })
+  @MinLength(6, { message: 'password necessita de 6 characters.' })
   password: string;
 
   emailVerified?: boolean;

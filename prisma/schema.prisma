@@ -14,15 +14,14 @@ model User {
   name          String
   emailVerified Boolean?
   image         String?
-  shops         Shop[]
+  shops         Shop[]   @relation("UserInShop")
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
 
 model Shop {
   id              String       @id @default(cuid())
-  owner_id        String
-  owner           User         @relation(fields: [owner_id], references: [id])
+  users           User[]       @relation("UserInShop")
   slug            String       @unique
   name            String
   description     String?
@@ -40,8 +39,8 @@ model Shop {
 
 model Categories {
   id        String     @id @default(cuid())
-  shop_slug String
-  shop      Shop       @relation(fields: [shop_slug], references: [slug])
+  shop_id   String
+  shop      Shop       @relation(fields: [shop_id], references: [id])
   name      String
   products  Products[]
   createdAt DateTime   @default(now())

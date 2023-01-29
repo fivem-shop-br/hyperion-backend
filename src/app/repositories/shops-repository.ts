@@ -1,5 +1,7 @@
 import { Shop } from '../entities/shop';
 
 export abstract class ShopRepository {
-  abstract findByOwner(owner: string): Promise<Shop[]>;
+  abstract findByUser(user: string): Promise<Shop[]>;
+  abstract findByUserId(userId: string, shopId: string): Promise<Shop>;
+  abstract findById(shopId: string): Promise<Shop>;
 }

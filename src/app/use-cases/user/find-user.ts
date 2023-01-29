@@ -1,7 +1,7 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
-import { Error } from '../../utils/error.filter';
-import { User } from '../entities/user';
-import { UserRepository } from '../repositories/users-repository';
+import { Error } from '../../../utils/error.filter';
+import { User } from '../../entities/user';
+import { UserRepository } from '../../repositories/users-repository';
 
 interface findUserByIdRequest {
   id: string;
@@ -19,12 +19,11 @@ export class FindUserById {
     const { id } = request;
     const user = await this.userRepository.findById(id);
 
-    if (!user) {
+    if (!user)
       throw new Error({
         message: 'Usuario não encontrado.',
         statusCode: HttpStatus.NOT_FOUND,
       });
-    }
 
     return {
       user,
