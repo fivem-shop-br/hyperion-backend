@@ -20,8 +20,6 @@ export class Categorie {
     this._id = id ?? randomUUID();
     this.props = {
       ...props,
-      createdAt: props.createdAt ?? new Date(),
-      updatedAt: props.updatedAt ?? new Date(),
     };
   }
 
