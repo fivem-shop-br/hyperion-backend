@@ -12,8 +12,9 @@ import { FindAllByIdCategorie } from 'src/app/use-cases/categorie/find-categorie
 import { CreateCategorie as CreateCategorieU } from 'src/app/use-cases/categorie/create-categorie';
 import createCategorie from '../dtos/create-categorie';
 import { CategorieViewModel } from '../view-models/categories-view-model';
-import deleteCategorie from '../dtos/delete-categorie';
 import { DeleteCategorieById } from 'src/app/use-cases/categorie/delete-categorie';
+import { UpdateCategorie as UpdateCategorieU } from 'src/app/use-cases/categorie/update-categorie';
+import updateCategorie from '../dtos/update-categorie';
 
 @Controller()
 export class CategoriesController {
@@ -21,6 +22,7 @@ export class CategoriesController {
     private findAllById: FindAllByIdCategorie,
     private createCategorie: CreateCategorieU,
     private deleteCategorieById: DeleteCategorieById,
+    private updateCategorie: UpdateCategorieU,
   ) {}
 
   @Get('categories/:id')
@@ -35,8 +37,14 @@ export class CategoriesController {
     return await this.createCategorie.execute(categorie);
   }
 
-  @Delete('categorie')
-  async delete(@Body() { id }: deleteCategorie) {
+  @Patch('categorie')
+  async update(@Body() data: updateCategorie) {
+    const categorie = new Categorie(data);
+    return await this.updateCategorie.execute(categorie);
+  }
+
+  @Delete('categorie/:id')
+  async delete(@Param() { id }: { id: string }) {
     const { categorie } = await this.deleteCategorieById.execute({ id });
     return CategorieViewModel.toHTTP(categorie);
   }

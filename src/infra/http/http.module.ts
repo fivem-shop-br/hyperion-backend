@@ -13,6 +13,7 @@ import { CategoriesController } from './controllers/categories.controller';
 import { FindAllByIdCategorie } from 'src/app/use-cases/categorie/find-categories';
 import { CreateCategorie } from 'src/app/use-cases/categorie/create-categorie';
 import { DeleteCategorieById } from 'src/app/use-cases/categorie/delete-categorie';
+import { UpdateCategorie } from 'src/app/use-cases/categorie/update-categorie';
 
 @Module({
   imports: [DatabaseModule],
@@ -28,6 +29,7 @@ import { DeleteCategorieById } from 'src/app/use-cases/categorie/delete-categori
     FindAllByIdCategorie,
     CreateCategorie,
     DeleteCategorieById,
+    UpdateCategorie,
   ],
 })
 export class HttpModule {}
