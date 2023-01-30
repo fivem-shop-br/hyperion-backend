@@ -48,7 +48,6 @@ export class AuthController {
   }
 
   @Get('me')
-  @Roles(Role.Admin)
   async getMe(@CurrentUser() { id }: User) {
     const { user } = await this.findUserById.execute({ id });
     return UserViewModel.toHTTP(user);

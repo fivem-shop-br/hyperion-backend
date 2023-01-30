@@ -1,24 +1,24 @@
 import { Injectable } from '@nestjs/common';
-import type { Categories as CategoriePrisma } from '@prisma/client';
+import type { Categories as CategoryPrisma } from '@prisma/client';
 import { Error } from '../../../utils/error.filter';
 import { HttpStatus } from '@nestjs/common/enums';
-import { CategorieRepository } from 'src/app/repositories/categorie-repository';
-import { Categorie } from 'src/app/entities/categorie';
+import { CategoryRepository } from 'src/app/repositories/category-repository';
+import { Category } from 'src/app/entities/category';
 import { ShopRepository } from 'src/app/repositories/shops-repository';
 
-type CreateCategorieRequest = Categorie;
-type CreateCategorieResponse = CategoriePrisma;
+type CreateCategoryRequest = Category;
+type CreateCategoryResponse = CategoryPrisma;
 
 @Injectable()
-export class CreateCategorie {
+export class CreateCategory {
   constructor(
-    private categorieRepository: CategorieRepository,
+    private categoryRepository: CategoryRepository,
     private shopRepository: ShopRepository,
   ) {}
 
   async execute(
-    request: CreateCategorieRequest,
-  ): Promise<CreateCategorieResponse> {
+    request: CreateCategoryRequest,
+  ): Promise<CreateCategoryResponse> {
     const { name, shop_id } = request;
     const existShopId = await this.shopRepository.findById(shop_id);
 
@@ -28,7 +28,7 @@ export class CreateCategorie {
         statusCode: HttpStatus.CONFLICT,
       });
 
-    const existName = await this.categorieRepository.findByName(name, shop_id);
+    const existName = await this.categoryRepository.findByName(name, shop_id);
 
     if (existName)
       throw new Error({
@@ -36,6 +36,6 @@ export class CreateCategorie {
         statusCode: HttpStatus.CONFLICT,
       });
 
-    return await this.categorieRepository.create(request);
+    return await this.categoryRepository.create(request);
   }
 }

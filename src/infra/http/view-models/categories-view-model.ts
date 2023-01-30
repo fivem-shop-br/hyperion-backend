@@ -1,13 +1,13 @@
-import { Categorie } from 'src/app/entities/categorie';
+import { Category } from 'src/app/entities/category';
 
-export class CategorieViewModel {
-  static toHTTP(categorie: Categorie) {
+export class CategoryViewModel {
+  static toHTTP(category: Category) {
     return {
-      id: categorie.id,
-      shop_id: categorie.shop_id,
-      name: categorie.name,
-      createdAt: categorie.createdAt,
-      updatedAt: categorie.updatedAt,
+      id: category.id,
+      shop_id: category.shop_id,
+      name: category.name,
+      createdAt: category.createdAt,
+      updatedAt: category.updatedAt,
     };
   }
 }

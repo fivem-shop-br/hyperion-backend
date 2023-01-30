@@ -1,6 +1,6 @@
 import { IsNotEmpty } from 'class-validator';
 
-export default class updateCategorie {
+export default class updateCategory {
   @IsNotEmpty({ message: 'id não pode ser vazio.' })
   id: string;
 

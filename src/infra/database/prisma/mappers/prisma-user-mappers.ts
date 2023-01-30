@@ -1,5 +1,5 @@
 import { User as RawUsers } from '@prisma/client';
-import { User } from '../../../../app/entities/user';
+import { User } from 'src/app/entities/user';
 
 export class PrismaUserMapper {
   static toDomain(raw: RawUsers): User {
@@ -11,6 +11,7 @@ export class PrismaUserMapper {
         password: raw.password,
         emailVerified: raw.emailVerified,
         image: raw.image,
+        role: raw.role,
         createdAt: raw.createdAt,
         updatedAt: raw.updatedAt,
       },

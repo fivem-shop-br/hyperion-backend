@@ -9,6 +9,7 @@ export interface UserProps {
   name: string;
   emailVerified?: boolean;
   image?: string;
+  role?: string[];
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -25,8 +26,6 @@ export class User {
     this.props = {
       ...props,
       password: props.password && hashSync(props.password, 10),
-      createdAt: props.createdAt ?? new Date(),
-      updatedAt: props.updatedAt ?? new Date(),
     };
   }
 
@@ -80,6 +79,14 @@ export class User {
 
   public get image(): string {
     return this.props.image;
+  }
+
+  public set role(role: string[]) {
+    this.props.role = role;
+  }
+
+  public get role(): string[] {
+    return this.props.role;
   }
 
   public get createdAt(): Date {

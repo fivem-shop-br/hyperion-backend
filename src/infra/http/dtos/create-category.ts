@@ -1,6 +1,6 @@
 import { IsNotEmpty } from 'class-validator';
 
-export default class createCategorie {
+export default class createCategory {
   id: string;
 
   @IsNotEmpty({ message: 'shop_id não pode ser vazio.' })
