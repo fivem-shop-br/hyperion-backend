@@ -1,7 +1,7 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { Category } from 'src/app/entities/category';
-import { Error } from '../../../utils/error.filter';
-import { CategoryRepository } from '../../repositories/category-repository';
+import { Error } from 'src/utils/error.filter';
+import { CategoryRepository } from 'src/app/repositories/category-repository';
 
 interface deleteCategoryByIdRequest {
   id: string;

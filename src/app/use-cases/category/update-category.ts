@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CategoryRepository } from '../../repositories/category-repository';
 import type { Categories as CategoryPrisma } from '@prisma/client';
-import { Error } from '../../../utils/error.filter';
+import { Error } from 'src/utils/error.filter';
 import { HttpStatus } from '@nestjs/common/enums';
 import { Category } from 'src/app/entities/category';
 

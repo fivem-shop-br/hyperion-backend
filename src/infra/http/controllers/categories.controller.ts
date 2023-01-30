@@ -25,7 +25,7 @@ export class CategorysController {
     private updateCategory: UpdateCategoryU,
   ) {}
 
-  @Get('categorys/:id')
+  @Get('categories/:id')
   async findAll(@Param() { id }: { id: string }) {
     const { category } = await this.findAllById.execute(id);
     return category.map(CategoryViewModel.toHTTP);
