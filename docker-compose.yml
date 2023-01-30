@@ -6,9 +6,12 @@ volumes:
 services:
   database:
     image: postgres
+    restart: always
     ports:
       - 5432:5432
     environment:
       - POSTGRES_PASSWORD=value
     volumes:
       - data:/var/lib/postgresql/data
+      - type: tmpfs
+        target: /dev/shm
