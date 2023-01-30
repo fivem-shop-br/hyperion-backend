@@ -38,11 +38,11 @@ export class Product {
   }
 
   public set category_id(category_id: string) {
-    this.props.id = category_id;
+    this.props.category_id = category_id;
   }
 
   public get category_id(): string {
-    return this.props.id;
+    return this.props.category_id;
   }
 
   public set name(name: string) {
@@ -67,5 +67,13 @@ export class Product {
 
   public get price(): number {
     return this.props.price;
+  }
+
+  public get createdAt(): Date {
+    return this.props.createdAt;
+  }
+
+  public get updatedAt(): Date {
+    return this.props.updatedAt;
   }
 }

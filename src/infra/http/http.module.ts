@@ -14,10 +14,19 @@ import { CreateCategory } from 'src/app/use-cases/category/create-category';
 import { DeleteCategoryById } from 'src/app/use-cases/category/delete-category';
 import { UpdateCategory } from 'src/app/use-cases/category/update-category';
 import { CategorysController } from './controllers/categories.controller';
+import { ProductController } from './controllers/product.controller';
+import { FindAllProducts } from 'src/app/use-cases/product/find-products';
+import { FindProductById } from 'src/app/use-cases/product/find-product';
+import { CreateProduct } from 'src/app/use-cases/product/create-product';
 
 @Module({
   imports: [DatabaseModule],
-  controllers: [UsersController, ShopController, CategorysController],
+  controllers: [
+    UsersController,
+    ShopController,
+    CategorysController,
+    ProductController,
+  ],
   providers: [
     FindUserById,
     FindAllUsers,
@@ -30,6 +39,9 @@ import { CategorysController } from './controllers/categories.controller';
     CreateCategory,
     DeleteCategoryById,
     UpdateCategory,
+    FindAllProducts,
+    FindProductById,
+    CreateProduct,
   ],
 })
 export class HttpModule {}

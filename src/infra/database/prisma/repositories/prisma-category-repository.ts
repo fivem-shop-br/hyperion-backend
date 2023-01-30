@@ -23,7 +23,7 @@ export class PrismaCategoryRepository implements CategoryRepository {
         id,
       },
     });
-
+    if (!categorys) return null;
     return PrismaCategoryMapper.toDomain(categorys);
   }
 
