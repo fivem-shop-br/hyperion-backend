@@ -5,7 +5,7 @@ import { ShopRepository } from '../../repositories/shops-repository';
 
 interface findShopByIdRequest {
   userId: string;
-  shopId: string;
+  shopSlug: string;
 }
 
 export interface findShopByIdResponse {
@@ -13,12 +13,12 @@ export interface findShopByIdResponse {
 }
 
 @Injectable()
-export class FindShopById {
+export class FindShopBySlug {
   constructor(private shopRepository: ShopRepository) {}
 
   async execute(request: findShopByIdRequest): Promise<findShopByIdResponse> {
-    const { shopId, userId } = request;
-    const shop = await this.shopRepository.findByUserId(userId, shopId);
+    const { shopSlug, userId } = request;
+    const shop = await this.shopRepository.findByUserId(userId, shopSlug);
 
     if (!shop)
       throw new Error({

@@ -22,15 +22,15 @@ export class PrismaShopRepository implements ShopRepository {
     return shops.map(PrismaShopMapper.toDomain);
   }
 
-  async findByUserId(userId: string, shopId: string): Promise<Shop> {
+  async findByUserId(id: string, slug: string): Promise<Shop> {
     const { shops: shop } = await this.prisma.user.findUnique({
       where: {
-        id: userId,
+        id,
       },
       include: {
         shops: {
           where: {
-            id: shopId,
+            slug,
           },
         },
       },
@@ -40,14 +40,48 @@ export class PrismaShopRepository implements ShopRepository {
     return PrismaShopMapper.toDomain(shop[0]);
   }
 
-  async findById(id: string): Promise<Shop> {
+  async findBySlug(slug: string): Promise<Shop> {
     const shop = await this.prisma.shop.findUnique({
       where: {
-        id,
+        slug,
       },
     });
 
     if (!shop) return null;
     return PrismaShopMapper.toDomain(shop);
+  }
+
+  async maxCategories(slug: string): Promise<number> {
+    const {
+      plan: { max_categories },
+    } = await this.prisma.shop.findFirst({
+      where: {
+        slug,
+      },
+      include: {
+        plan: {
+          select: { max_categories: true },
+        },
+      },
+    });
+
+    return max_categories;
+  }
+
+  async maxProducts(slug: string): Promise<number> {
+    const {
+      plan: { max_products },
+    } = await this.prisma.shop.findFirst({
+      where: {
+        slug,
+      },
+      include: {
+        plan: {
+          select: { max_products: true },
+        },
+      },
+    });
+
+    return max_products;
   }
 }

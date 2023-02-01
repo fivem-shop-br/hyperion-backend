@@ -12,7 +12,7 @@ export interface ShopsProps {
   primary_color?: string;
   secondary_color?: string;
   domain: string;
-  plan: string;
+  plan_type: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -115,12 +115,12 @@ export class Shop {
     return this.props.domain;
   }
 
-  public set plan(plan: string) {
-    this.props.plan = plan;
+  public set plan_type(plan_type: string) {
+    this.props.plan_type = plan_type;
   }
 
-  public get plan(): string {
-    return this.props.plan;
+  public get plan_type(): string {
+    return this.props.plan_type;
   }
 
   public get createdAt(): Date {

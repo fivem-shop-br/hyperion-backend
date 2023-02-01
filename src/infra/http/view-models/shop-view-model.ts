@@ -6,7 +6,7 @@ export class ShopViewModel {
       id: shop.id,
       name: shop.name,
       domain: shop.domain,
-      plan: shop.plan,
+      plan_type: shop.plan_type,
       slug: shop.slug,
       banner: shop.banner,
       description: shop.description,

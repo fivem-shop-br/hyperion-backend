@@ -7,17 +7,40 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum userRoles {
+  user
+  admin
+}
+
 model User {
-  id            String   @id @default(cuid())
-  email         String   @unique
+  id            String      @id @default(cuid())
+  email         String      @unique
   password      String
   name          String
   emailVerified Boolean?
   image         String?
-  shops         Shop[]   @relation("UserInShop")
-  role          String[] @default(["user"])
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  shops         Shop[]      @relation("UserInShop")
+  role          userRoles[] @default([user])
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+enum planTypes {
+  free
+  premium
+  ultra
+  super
+}
+
+model Plan {
+  id             String    @id @default(cuid())
+  type           planTypes @unique() @default(free)
+  price          Int
+  max_categories Int
+  max_products   Int
+  max_coupons    Int
+
+  Shop Shop[]
 }
 
 model Shop {
@@ -32,7 +55,8 @@ model Shop {
   primary_color   String?
   secondary_color String?
   domain          String
-  plan            String
+  plan            Plan         @relation(fields: [plan_type], references: [type])
+  plan_type       planTypes
   categorys       Categories[]
   createdAt       DateTime     @default(now())
   updatedAt       DateTime     @updatedAt
@@ -40,8 +64,8 @@ model Shop {
 
 model Categories {
   id        String     @id @default(cuid())
-  shop_id   String
-  shop      Shop       @relation(fields: [shop_id], references: [id])
+  shop_slug String
+  shop      Shop       @relation(fields: [shop_slug], references: [slug])
   name      String
   products  Products[]
   createdAt DateTime   @default(now())

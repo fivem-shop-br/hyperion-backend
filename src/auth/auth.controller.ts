@@ -14,8 +14,6 @@ import { AuthRequest } from './models/AuthRequest';
 import { IsPublic } from './decorators/is-public.decorator';
 import { CurrentUser } from './decorators/current-user.decorator';
 import { User } from '../app/entities/user';
-import { Roles } from './decorators/roles.decorator';
-import { Role } from './roles/role.enum';
 import { FindUserById } from '../app/use-cases/user/find-user';
 import { UserViewModel } from '../infra/http/view-models/user-view-model';
 import { Throttle } from '@nestjs/throttler';
