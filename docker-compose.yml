@@ -23,7 +23,7 @@ services:
       dockerfile: Dockerfile
     environment:
       - JWT_SECRET=576D5A7134743677397A24432646294A404E635266556A586E32723575387821
-      - DATABASE_URL=postgresql://postgres:iKIK983J9JsimjMSD9QJRU23NJMIMJosmaojsmjOIo0o9o@api.fivem.website/database
+      - DATABASE_URL=postgresql://postgres:iKIK983J9JsimjMSD9QJRU23NJMIMJosmaojsmjOIo0o9o@191.101.234.50:5432/postgres
     depends_on:
       - database
     ports:
