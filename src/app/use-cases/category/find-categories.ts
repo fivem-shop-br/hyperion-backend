@@ -2,16 +2,16 @@ import { Injectable } from '@nestjs/common';
 import { Category } from 'src/app/entities/category';
 import { CategoryRepository } from 'src/app/repositories/category-repository';
 
-export interface FindAllByIdCategoryResponse {
+export interface FindAllBySlugCategoryResponse {
   category: Category[];
 }
 
 @Injectable()
-export class FindAllByIdCategory {
+export class FindAllBySlugCategory {
   constructor(private categoryRepository: CategoryRepository) {}
 
-  async execute(id: string): Promise<FindAllByIdCategoryResponse> {
-    const category = await this.categoryRepository.findAllById(id);
+  async execute(slug: string): Promise<FindAllBySlugCategoryResponse> {
+    const category = await this.categoryRepository.findAllBySlug(slug);
 
     return {
       category,

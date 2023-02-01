@@ -8,10 +8,10 @@ import { PrismaService } from '../prisma.service';
 @Injectable()
 export class PrismaCategoryRepository implements CategoryRepository {
   constructor(private prisma: PrismaService) {}
-  async findAllById(shop_id: string): Promise<Category[]> {
+  async findAllBySlug(shop_slug: string): Promise<Category[]> {
     const categorys = await this.prisma.categories.findMany({
       where: {
-        shop_id,
+        shop_slug,
       },
     });
     return categorys.map(PrismaCategoryMapper.toDomain);
@@ -27,11 +27,11 @@ export class PrismaCategoryRepository implements CategoryRepository {
     return PrismaCategoryMapper.toDomain(categorys);
   }
 
-  async findByName(name: string, shop_id: string): Promise<Category> {
+  async findByName(name: string, shop_slug: string): Promise<Category> {
     const category = await this.prisma.categories.findFirst({
       where: {
         name,
-        shop_id,
+        shop_slug,
       },
     });
 
@@ -71,10 +71,10 @@ export class PrismaCategoryRepository implements CategoryRepository {
     return PrismaCategoryMapper.toDomain(deleted);
   }
 
-  async findByShopId(shop_id: string): Promise<Category> {
+  async findByShopSlug(shop_slug: string): Promise<Category> {
     const category = await this.prisma.categories.findFirst({
       where: {
-        shop_id,
+        shop_slug,
       },
     });
 

@@ -7,7 +7,7 @@ export class PrismaCategoryMapper {
       {
         id: raw.id,
         name: raw.name,
-        shop_id: raw.shop_id,
+        shop_slug: raw.shop_slug,
         createdAt: raw.createdAt,
         updatedAt: raw.updatedAt,
       },
@@ -19,7 +19,7 @@ export class PrismaCategoryMapper {
     return {
       id: category.categoryId,
       name: category.name,
-      shop_id: category.shop_id,
+      shop_slug: category.shop_slug,
       createdAt: category.createdAt,
       updatedAt: category.updatedAt,
     };

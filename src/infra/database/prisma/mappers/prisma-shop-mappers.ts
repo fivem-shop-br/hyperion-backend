@@ -8,7 +8,7 @@ export class PrismaShopMapper {
         id: raw.id,
         name: raw.name,
         domain: raw.domain,
-        plan: raw.plan,
+        plan_type: raw.plan_type,
         slug: raw.slug,
         banner: raw.banner,
         description: raw.description,

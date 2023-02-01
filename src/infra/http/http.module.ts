@@ -8,8 +8,8 @@ import { FindUserById } from 'src/app/use-cases/user/find-user';
 import { UsersController } from './controllers/users.controller';
 import { FindShopsByUser } from 'src/app/use-cases/shop/find-shops';
 import { ShopController } from './controllers/shop.controller';
-import { FindShopById } from 'src/app/use-cases/shop/find-shop';
-import { FindAllByIdCategory } from 'src/app/use-cases/category/find-categories';
+import { FindShopBySlug } from 'src/app/use-cases/shop/find-shop';
+import { FindAllBySlugCategory } from 'src/app/use-cases/category/find-categories';
 import { CreateCategory } from 'src/app/use-cases/category/create-category';
 import { DeleteCategoryById } from 'src/app/use-cases/category/delete-category';
 import { UpdateCategory } from 'src/app/use-cases/category/update-category';
@@ -18,6 +18,7 @@ import { ProductController } from './controllers/product.controller';
 import { FindAllProducts } from 'src/app/use-cases/product/find-products';
 import { FindProductById } from 'src/app/use-cases/product/find-product';
 import { CreateProduct } from 'src/app/use-cases/product/create-product';
+import { DeleteProductById } from 'src/app/use-cases/product/delete-product';
 
 @Module({
   imports: [DatabaseModule],
@@ -34,14 +35,15 @@ import { CreateProduct } from 'src/app/use-cases/product/create-product';
     CreateUser,
     UpdateUser,
     FindShopsByUser,
-    FindShopById,
-    FindAllByIdCategory,
+    FindShopBySlug,
+    FindAllBySlugCategory,
     CreateCategory,
     DeleteCategoryById,
     UpdateCategory,
     FindAllProducts,
     FindProductById,
     CreateProduct,
+    DeleteProductById,
   ],
 })
 export class HttpModule {}

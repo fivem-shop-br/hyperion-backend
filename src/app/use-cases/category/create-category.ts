@@ -19,20 +19,31 @@ export class CreateCategory {
   async execute(
     request: CreateCategoryRequest,
   ): Promise<CreateCategoryResponse> {
-    const { name, shop_id } = request;
-    const existShopId = await this.shopRepository.findById(shop_id);
+    const { name, shop_slug } = request;
+    const existShopId = await this.shopRepository.findBySlug(shop_slug);
 
     if (!existShopId)
       throw new Error({
-        message: 'Essa shop_id não existe.',
+        message: 'Essa shop_slug não existe.',
         statusCode: HttpStatus.CONFLICT,
       });
 
-    const existName = await this.categoryRepository.findByName(name, shop_id);
+    const existName = await this.categoryRepository.findByName(name, shop_slug);
 
     if (existName)
       throw new Error({
         message: 'Essa categoria já foi cadastrada.',
+        statusCode: HttpStatus.CONFLICT,
+      });
+
+    const maxCategories = await this.shopRepository.maxCategories(shop_slug);
+    const allCategories = await this.categoryRepository.findAllBySlug(
+      shop_slug,
+    );
+
+    if (allCategories.length >= maxCategories)
+      throw new Error({
+        message: 'Você atingiu o maximo de categorias, atualize seu Plano.',
         statusCode: HttpStatus.CONFLICT,
       });
 

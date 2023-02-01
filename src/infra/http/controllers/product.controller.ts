@@ -1,11 +1,12 @@
 import { Controller } from '@nestjs/common/decorators/core/controller.decorator';
-import { Body, Get, Param, Post } from '@nestjs/common';
+import { Body, Get, Param, Post, Delete } from '@nestjs/common';
 import { FindAllProducts } from 'src/app/use-cases/product/find-products';
 import { ProductViewModel } from '../view-models/product-view-model';
 import { FindProductById } from 'src/app/use-cases/product/find-product';
 import { CreateProduct } from 'src/app/use-cases/product/create-product';
 import createProduct from '../dtos/create-product';
 import { Product } from 'src/app/entities/product';
+import { DeleteProductById } from 'src/app/use-cases/product/delete-product';
 
 @Controller()
 export class ProductController {
@@ -13,6 +14,7 @@ export class ProductController {
     private findAllProducts: FindAllProducts,
     private findProductById: FindProductById,
     private createProduct: CreateProduct,
+    private deleteProduct: DeleteProductById,
   ) {}
 
   @Get('products/:category_id')
@@ -31,5 +33,11 @@ export class ProductController {
   async create(@Body() data: createProduct) {
     const product = new Product(data);
     return await this.createProduct.execute(product);
+  }
+
+  @Delete('product/:id')
+  async delete(@Param() { id }: { id: string }) {
+    const { product } = await this.deleteProduct.execute({ id });
+    return ProductViewModel.toHTTP(product);
   }
 }
