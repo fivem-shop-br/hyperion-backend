@@ -3,11 +3,6 @@ import { Error } from 'src/utils/error.filter';
 import { Shop } from '../../entities/shop';
 import { ShopRepository } from '../../repositories/shops-repository';
 
-interface findShopByIdRequest {
-  userId: string;
-  shopSlug: string;
-}
-
 export interface findShopByIdResponse {
   shop: Shop;
 }
@@ -16,9 +11,8 @@ export interface findShopByIdResponse {
 export class FindShopBySlug {
   constructor(private shopRepository: ShopRepository) {}
 
-  async execute(request: findShopByIdRequest): Promise<findShopByIdResponse> {
-    const { shopSlug, userId } = request;
-    const shop = await this.shopRepository.findByUserId(userId, shopSlug);
+  async execute(slug: string): Promise<findShopByIdResponse> {
+    const shop = await this.shopRepository.findBySlug(slug);
 
     if (!shop)
       throw new Error({

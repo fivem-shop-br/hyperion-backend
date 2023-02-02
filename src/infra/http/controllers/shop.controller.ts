@@ -1,17 +1,11 @@
 import { FindShopsByUser } from 'src/app/use-cases/shop/find-shops';
-import { Get, Controller, Request } from '@nestjs/common';
+import { Get, Controller } from '@nestjs/common';
 import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
 import { User } from '@prisma/client';
 import { ShopViewModel } from '../view-models/shop-view-model';
-import { UserFromJwt } from 'src/auth/models/UserFromJwt';
 import { FindShopBySlug } from 'src/app/use-cases/shop/find-shop';
-
-interface findByIdProps {
-  user: UserFromJwt;
-  params: {
-    slug: string;
-  };
-}
+import { IsPublic } from 'src/auth/decorators/is-public.decorator';
+import { Param } from '@nestjs/common/decorators';
 
 @Controller()
 export class ShopController {
@@ -26,12 +20,14 @@ export class ShopController {
     return shop.map(ShopViewModel.toHTTP);
   }
 
+  @IsPublic()
   @Get('shop/:slug')
   async findById(
-    @Request()
-    { user: { id: userId }, params: { slug: shopSlug } }: findByIdProps,
+    @Param()
+    { slug }: { slug: string },
   ) {
-    const { shop } = await this.findShopBySlug.execute({ userId, shopSlug });
+    console.log(slug);
+    const { shop } = await this.findShopBySlug.execute(slug);
     return ShopViewModel.toHTTP(shop);
   }
 }
