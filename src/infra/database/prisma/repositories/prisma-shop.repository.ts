@@ -41,7 +41,7 @@ export class PrismaShopRepository implements ShopRepository {
   }
 
   async findBySlug(slug: string): Promise<Shop> {
-    const shop = await this.prisma.shop.findUnique({
+    const shop = await this.prisma.shop.findFirst({
       where: {
         slug,
       },
