@@ -25,8 +25,6 @@ model User {
   role userRoles[] @default([user])
 
   UserInShop UserInShop[]
-  shops      Shop[]       @relation("UserInShop")
-  myShops    Shop[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -54,8 +52,6 @@ model Plan {
 
 model Shop {
   id      String @id @default(cuid())
-  users   User[] @relation("UserInShop")
-  owner   User   @relation(fields: [ownerId], references: [id])
   ownerId String
 
   slug        String  @unique
@@ -80,15 +76,27 @@ model Shop {
   UserInShop UserInShop[]
 }
 
+enum UserInShopRoles {
+  owner
+
+  createProduct
+  updateProduct
+  deleteProduct
+
+  createCategory
+  updateCategory
+  deleteCategory
+}
+
 model UserInShop {
-  id        String   @id @default(cuid())
-  user      User     @relation(fields: [userId], references: [id])
+  id        String            @id @default(cuid())
+  user      User              @relation(fields: [userId], references: [id])
   userId    String
-  shop      Shop     @relation(fields: [shopId], references: [id])
+  shop      Shop              @relation(fields: [shopId], references: [id])
   shopId    String
-  role      String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  role      UserInShopRoles[]
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
 }
 
 model Categories {
