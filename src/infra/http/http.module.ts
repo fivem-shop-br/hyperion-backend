@@ -19,6 +19,8 @@ import { FindAllProducts } from 'src/app/use-cases/product/find-products';
 import { FindProductById } from 'src/app/use-cases/product/find-product';
 import { CreateProduct } from 'src/app/use-cases/product/create-product';
 import { DeleteProductById } from 'src/app/use-cases/product/delete-product';
+import { FileController } from './controllers/file.controller';
+import { FileUploadService } from 'src/utils/multer.service';
 
 @Module({
   imports: [DatabaseModule],
@@ -27,6 +29,7 @@ import { DeleteProductById } from 'src/app/use-cases/product/delete-product';
     ShopController,
     CategorysController,
     ProductController,
+    FileController,
   ],
   providers: [
     FindUserById,
@@ -44,6 +47,7 @@ import { DeleteProductById } from 'src/app/use-cases/product/delete-product';
     FindProductById,
     CreateProduct,
     DeleteProductById,
+    FileUploadService,
   ],
 })
 export class HttpModule {}

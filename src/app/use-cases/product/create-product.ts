@@ -18,8 +18,8 @@ export class CreateProduct {
   ) {}
 
   async execute(request: CreateProductRequest): Promise<CreateProductResponse> {
-    const { category_id } = request;
-    const category = await this.categoryRepository.findById(category_id);
+    const { categoryId } = request;
+    const category = await this.categoryRepository.findById(categoryId);
 
     if (!category)
       throw new Error({
@@ -28,10 +28,10 @@ export class CreateProduct {
       });
 
     const allProductsPerCategory =
-      await this.productRepository.findAllByCategoryId(category_id);
+      await this.productRepository.findAllByCategoryId(categoryId);
 
     const maxProducts = await this.shopRepository.maxProducts(
-      category.shop_slug,
+      category.shopSlug,
     );
 
     if (allProductsPerCategory.length >= maxProducts)

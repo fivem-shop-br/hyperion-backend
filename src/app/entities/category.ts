@@ -3,7 +3,7 @@ import { Replace } from 'src/helpers/Replace';
 
 export interface CategoryProps {
   id: string;
-  shop_slug?: string;
+  shopSlug?: string;
   name: string;
   createdAt?: Date;
   updatedAt?: Date;
@@ -35,12 +35,12 @@ export class Category {
     return this.props.id;
   }
 
-  public set shop_slug(shop_slug: string) {
-    this.props.shop_slug = shop_slug;
+  public set shopSlug(shopSlug: string) {
+    this.props.shopSlug = shopSlug;
   }
 
-  public get shop_slug(): string {
-    return this.props.shop_slug;
+  public get shopSlug(): string {
+    return this.props.shopSlug;
   }
 
   public set name(name: string) {

@@ -10,10 +10,10 @@ import {
 import { Category } from 'src/app/entities/category';
 import { FindAllBySlugCategory } from 'src/app/use-cases/category/find-categories';
 import { CreateCategory as CreateCategoryU } from 'src/app/use-cases/category/create-category';
-import createCategory from '../dtos/create-category';
 import { CategoryViewModel } from '../view-models/categories-view-model';
 import { DeleteCategoryById } from 'src/app/use-cases/category/delete-category';
 import { UpdateCategory as UpdateCategoryU } from 'src/app/use-cases/category/update-category';
+import createCategory from '../dtos/create-category';
 import updateCategory from '../dtos/update-category';
 
 @Controller()

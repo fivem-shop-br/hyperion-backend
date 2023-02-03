@@ -7,8 +7,8 @@ import { Error } from 'src/utils/error.filter';
 export class FindProductById {
   constructor(private ProductsRepository: ProductRepository) {}
 
-  async execute(product_id: string): Promise<Product> {
-    const product = await this.ProductsRepository.findById(product_id);
+  async execute(productId: string): Promise<Product> {
+    const product = await this.ProductsRepository.findById(productId);
 
     if (!product)
       throw new Error({

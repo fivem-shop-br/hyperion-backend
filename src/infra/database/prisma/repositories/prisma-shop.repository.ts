@@ -9,21 +9,23 @@ export class PrismaShopRepository implements ShopRepository {
   constructor(private prisma: PrismaService) {}
 
   async findByUser(id: string): Promise<Shop[]> {
-    const { shops } = await this.prisma.user.findUnique({
+    const { shops, myShops } = await this.prisma.user.findUnique({
       where: {
         id,
       },
       include: {
         shops: true,
+        myShops: true,
       },
     });
 
-    if (!shops) return null;
-    return shops.map(PrismaShopMapper.toDomain);
+    if (!shops || !myShops) return null;
+    const concatShops = shops.concat(myShops);
+    return concatShops.map(PrismaShopMapper.toDomain);
   }
 
   async findByUserId(id: string, slug: string): Promise<Shop> {
-    const { shops: shop } = await this.prisma.user.findUnique({
+    const { shops } = await this.prisma.user.findUnique({
       where: {
         id,
       },
@@ -33,11 +35,12 @@ export class PrismaShopRepository implements ShopRepository {
             slug,
           },
         },
+        myShops: true,
       },
     });
 
-    if (!shop.length) return null;
-    return PrismaShopMapper.toDomain(shop[0]);
+    if (!shops.length) return null;
+    return PrismaShopMapper.toDomain(shops[0]);
   }
 
   async findBySlug(slug: string): Promise<Shop> {
@@ -53,35 +56,35 @@ export class PrismaShopRepository implements ShopRepository {
 
   async maxCategories(slug: string): Promise<number> {
     const {
-      plan: { max_categories },
+      plan: { maxCategories },
     } = await this.prisma.shop.findFirst({
       where: {
         slug,
       },
       include: {
         plan: {
-          select: { max_categories: true },
+          select: { maxCategories: true },
         },
       },
     });
 
-    return max_categories;
+    return maxCategories;
   }
 
   async maxProducts(slug: string): Promise<number> {
     const {
-      plan: { max_products },
+      plan: { maxProducts },
     } = await this.prisma.shop.findFirst({
       where: {
         slug,
       },
       include: {
         plan: {
-          select: { max_products: true },
+          select: { maxProducts: true },
         },
       },
     });
 
-    return max_products;
+    return maxProducts;
   }
 }

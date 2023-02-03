@@ -6,8 +6,8 @@ import { Error } from 'src/utils/error.filter';
 export class maxCategories {
   constructor(private shopRepository: ShopRepository) {}
 
-  async execute(shop_slug: string): Promise<number> {
-    const product = await this.shopRepository.findBySlug(shop_slug);
+  async execute(shopSlug: string): Promise<number> {
+    const product = await this.shopRepository.findBySlug(shopSlug);
 
     if (!product)
       throw new Error({
@@ -15,6 +15,6 @@ export class maxCategories {
         statusCode: HttpStatus.NOT_FOUND,
       });
 
-    return await this.shopRepository.maxCategories(shop_slug);
+    return await this.shopRepository.maxCategories(shopSlug);
   }
 }

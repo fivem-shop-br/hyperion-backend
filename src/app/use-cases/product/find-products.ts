@@ -6,7 +6,7 @@ import { ProductRepository } from 'src/app/repositories/product-repository';
 export class FindAllProducts {
   constructor(private ProductsRepository: ProductRepository) {}
 
-  async execute(category_id: string): Promise<Product[]> {
-    return await this.ProductsRepository.findAllByCategoryId(category_id);
+  async execute(categoryId: string): Promise<Product[]> {
+    return await this.ProductsRepository.findAllByCategoryId(categoryId);
   }
 }
