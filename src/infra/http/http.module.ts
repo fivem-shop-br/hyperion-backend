@@ -21,6 +21,8 @@ import { CreateProduct } from 'src/app/use-cases/product/create-product';
 import { DeleteProductById } from 'src/app/use-cases/product/delete-product';
 import { FileController } from './controllers/file.controller';
 import { FileUploadService } from 'src/utils/multer.service';
+import { APP_GUARD } from '@nestjs/core';
+import { ShopRolesGuard } from './guards/shop-roles.guard';
 
 @Module({
   imports: [DatabaseModule],
@@ -32,6 +34,10 @@ import { FileUploadService } from 'src/utils/multer.service';
     FileController,
   ],
   providers: [
+    {
+      provide: APP_GUARD,
+      useClass: ShopRolesGuard,
+    },
     FindUserById,
     FindAllUsers,
     DeleteUserById,

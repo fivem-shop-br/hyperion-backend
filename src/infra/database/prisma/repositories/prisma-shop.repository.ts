@@ -3,44 +3,22 @@ import { Shop } from 'src/app/entities/shop';
 import { ShopRepository } from 'src/app/repositories/shops-repository';
 import { PrismaShopMapper } from '../mappers/prisma-shop-mappers';
 import { PrismaService } from '../prisma.service';
-
+import type { UserInShopRoles } from '@prisma/client';
 @Injectable()
 export class PrismaShopRepository implements ShopRepository {
   constructor(private prisma: PrismaService) {}
 
-  async findByUser(id: string): Promise<Shop[]> {
-    const { shops, myShops } = await this.prisma.user.findUnique({
+  async findByUser(userId: string): Promise<Shop[]> {
+    const shops = await this.prisma.userInShop.findMany({
       where: {
-        id,
+        userId,
       },
       include: {
-        shops: true,
-        myShops: true,
+        shop: true,
       },
     });
 
-    if (!shops || !myShops) return null;
-    const concatShops = shops.concat(myShops);
-    return concatShops.map(PrismaShopMapper.toDomain);
-  }
-
-  async findByUserId(id: string, slug: string): Promise<Shop> {
-    const { shops } = await this.prisma.user.findUnique({
-      where: {
-        id,
-      },
-      include: {
-        shops: {
-          where: {
-            slug,
-          },
-        },
-        myShops: true,
-      },
-    });
-
-    if (!shops.length) return null;
-    return PrismaShopMapper.toDomain(shops[0]);
+    return shops.map(({ shop }) => PrismaShopMapper.toDomain(shop));
   }
 
   async findBySlug(slug: string): Promise<Shop> {
@@ -52,6 +30,23 @@ export class PrismaShopRepository implements ShopRepository {
 
     if (!shop) return null;
     return PrismaShopMapper.toDomain(shop);
+  }
+
+  async allRolesByUserId(
+    userId: string,
+    shopId: string,
+  ): Promise<UserInShopRoles[]> {
+    const { role } = await this.prisma.userInShop.findFirst({
+      where: {
+        userId,
+        shopId,
+      },
+      select: {
+        role: true,
+      },
+    });
+
+    return role;
   }
 
   async maxCategories(slug: string): Promise<number> {

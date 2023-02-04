@@ -8,12 +8,14 @@ import {
   FileTypeValidator,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { Throttle } from '@nestjs/throttler';
 import { FileUploadService } from 'src/utils/multer.service';
 
 @Controller()
 export class FileController {
   constructor(private fileUploadService: FileUploadService) {}
 
+  @Throttle(15, 60 * 5)
   @Post('upload')
   @UseInterceptors(FileInterceptor('file'))
   async uploadFile(
