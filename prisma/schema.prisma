@@ -51,8 +51,7 @@ model Plan {
 }
 
 model Shop {
-  id      String @id @default(cuid())
-  ownerId String
+  id String @id @default(cuid())
 
   slug        String  @unique
   name        String
