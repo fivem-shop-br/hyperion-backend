@@ -16,6 +16,7 @@ import { UpdateCategory as UpdateCategoryU } from 'src/app/use-cases/category/up
 import { shopRoles } from '../decorators/shop-roles.decorator';
 import createCategory from '../dtos/create-category';
 import updateCategory from '../dtos/update-category';
+import { IsPublic } from 'src/auth/decorators/is-public.decorator';
 
 @Controller()
 export class CategorysController {
@@ -26,6 +27,7 @@ export class CategorysController {
     private updateCategory: UpdateCategoryU,
   ) {}
 
+  @IsPublic()
   @Get('categories/:slug')
   async findAll(@Param() { slug }: { slug: string }) {
     const { category } = await this.findAllBySlug.execute(slug);
