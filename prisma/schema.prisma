@@ -13,16 +13,21 @@ enum userRoles {
 }
 
 model User {
-  id            String      @id @default(cuid())
-  email         String      @unique
-  password      String
-  name          String
+  id String @id @default(cuid())
+
+  email         String   @unique
   emailVerified Boolean?
-  image         String?
-  shops         Shop[]      @relation("UserInShop")
-  role          userRoles[] @default([user])
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
+  password      String
+
+  name  String
+  image String?
+
+  role userRoles[] @default([user])
+
+  UserInShop UserInShop[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 enum planTypes {
@@ -33,52 +38,89 @@ enum planTypes {
 }
 
 model Plan {
-  id             String    @id @default(cuid())
-  type           planTypes @unique() @default(free)
-  price          Int
-  max_categories Int
-  max_products   Int
-  max_coupons    Int
+  id    String @id @default(cuid())
+  price Int
 
-  Shop Shop[]
+  type          planTypes @unique() @default(free)
+  maxCategories Int
+  maxProducts   Int
+  maxCoupons    Int
+  maxUsers      Int
+
+  shop Shop[]
 }
 
 model Shop {
-  id              String       @id @default(cuid())
-  users           User[]       @relation("UserInShop")
-  slug            String       @unique
-  name            String
-  description     String?
-  logo            String?
-  banner          String?
-  favicon         String?
-  primary_color   String?
-  secondary_color String?
-  domain          String
-  plan            Plan         @relation(fields: [plan_type], references: [type])
-  plan_type       planTypes
-  categorys       Categories[]
-  createdAt       DateTime     @default(now())
-  updatedAt       DateTime     @updatedAt
+  id String @id @default(cuid())
+
+  slug        String  @unique
+  name        String
+  logo        String?
+  favicon     String?
+  banner      String?
+  description String?
+  domain      String
+
+  primaryColor   String?
+  secondaryColor String?
+
+  plan     Plan      @relation(fields: [planType], references: [type])
+  planType planTypes
+
+  categorys Categories[]
+
+  expiredAt  DateTime
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  UserInShop UserInShop[]
+}
+
+enum UserInShopRoles {
+  owner
+
+  createProduct
+  updateProduct
+  deleteProduct
+
+  createCategory
+  updateCategory
+  deleteCategory
+}
+
+model UserInShop {
+  id        String            @id @default(cuid())
+  user      User              @relation(fields: [userId], references: [id])
+  userId    String
+  shop      Shop              @relation(fields: [shopId], references: [id])
+  shopId    String
+  role      UserInShopRoles[]
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
 }
 
 model Categories {
-  id        String     @id @default(cuid())
-  shop_slug String
-  shop      Shop       @relation(fields: [shop_slug], references: [slug])
-  name      String
-  products  Products[]
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  id String @id @default(cuid())
+
+  shop     Shop   @relation(fields: [shopSlug], references: [slug])
+  shopSlug String
+  name     String
+
+  products Products[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Products {
-  id          String     @id @default(cuid())
-  category_id String
-  name        String
-  image       String?
-  price       Int
-  category    Categories @relation(fields: [category_id], references: [id])
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+  id         String @id @default(cuid())
+  categoryId String
+
+  name  String
+  image String[]
+  price Int
+
+  category Categories @relation(fields: [categoryId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

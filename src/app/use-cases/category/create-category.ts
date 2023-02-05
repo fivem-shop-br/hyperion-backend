@@ -19,16 +19,16 @@ export class CreateCategory {
   async execute(
     request: CreateCategoryRequest,
   ): Promise<CreateCategoryResponse> {
-    const { name, shop_slug } = request;
-    const existShopId = await this.shopRepository.findBySlug(shop_slug);
+    const { name, shopSlug } = request;
+    const existShopId = await this.shopRepository.findBySlug(shopSlug);
 
     if (!existShopId)
       throw new Error({
-        message: 'Essa shop_slug não existe.',
+        message: 'Essa shopSlug não existe.',
         statusCode: HttpStatus.CONFLICT,
       });
 
-    const existName = await this.categoryRepository.findByName(name, shop_slug);
+    const existName = await this.categoryRepository.findByName(name, shopSlug);
 
     if (existName)
       throw new Error({
@@ -36,10 +36,8 @@ export class CreateCategory {
         statusCode: HttpStatus.CONFLICT,
       });
 
-    const maxCategories = await this.shopRepository.maxCategories(shop_slug);
-    const allCategories = await this.categoryRepository.findAllBySlug(
-      shop_slug,
-    );
+    const maxCategories = await this.shopRepository.maxCategories(shopSlug);
+    const allCategories = await this.categoryRepository.findAllBySlug(shopSlug);
 
     if (allCategories.length >= maxCategories)
       throw new Error({

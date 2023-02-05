@@ -3,41 +3,22 @@ import { Shop } from 'src/app/entities/shop';
 import { ShopRepository } from 'src/app/repositories/shops-repository';
 import { PrismaShopMapper } from '../mappers/prisma-shop-mappers';
 import { PrismaService } from '../prisma.service';
-
+import type { UserInShopRoles } from '@prisma/client';
 @Injectable()
 export class PrismaShopRepository implements ShopRepository {
   constructor(private prisma: PrismaService) {}
 
-  async findByUser(id: string): Promise<Shop[]> {
-    const { shops } = await this.prisma.user.findUnique({
+  async findByUser(userId: string): Promise<Shop[]> {
+    const shops = await this.prisma.userInShop.findMany({
       where: {
-        id,
+        userId,
       },
       include: {
-        shops: true,
+        shop: true,
       },
     });
 
-    if (!shops) return null;
-    return shops.map(PrismaShopMapper.toDomain);
-  }
-
-  async findByUserId(id: string, slug: string): Promise<Shop> {
-    const { shops: shop } = await this.prisma.user.findUnique({
-      where: {
-        id,
-      },
-      include: {
-        shops: {
-          where: {
-            slug,
-          },
-        },
-      },
-    });
-
-    if (!shop.length) return null;
-    return PrismaShopMapper.toDomain(shop[0]);
+    return shops.map(({ shop }) => PrismaShopMapper.toDomain(shop));
   }
 
   async findBySlug(slug: string): Promise<Shop> {
@@ -51,37 +32,54 @@ export class PrismaShopRepository implements ShopRepository {
     return PrismaShopMapper.toDomain(shop);
   }
 
+  async allRolesByUserId(
+    userId: string,
+    shopId: string,
+  ): Promise<UserInShopRoles[]> {
+    const { role } = await this.prisma.userInShop.findFirst({
+      where: {
+        userId,
+        shopId,
+      },
+      select: {
+        role: true,
+      },
+    });
+
+    return role;
+  }
+
   async maxCategories(slug: string): Promise<number> {
     const {
-      plan: { max_categories },
+      plan: { maxCategories },
     } = await this.prisma.shop.findFirst({
       where: {
         slug,
       },
       include: {
         plan: {
-          select: { max_categories: true },
+          select: { maxCategories: true },
         },
       },
     });
 
-    return max_categories;
+    return maxCategories;
   }
 
   async maxProducts(slug: string): Promise<number> {
     const {
-      plan: { max_products },
+      plan: { maxProducts },
     } = await this.prisma.shop.findFirst({
       where: {
         slug,
       },
       include: {
         plan: {
-          select: { max_products: true },
+          select: { maxProducts: true },
         },
       },
     });
 
-    return max_products;
+    return maxProducts;
   }
 }

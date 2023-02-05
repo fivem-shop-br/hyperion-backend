@@ -6,7 +6,7 @@ export class PrismaProductMapper {
     return new Product(
       {
         id: raw.id,
-        category_id: raw.category_id,
+        categoryId: raw.categoryId,
         name: raw.name,
         image: raw.image,
         price: raw.price,
@@ -20,7 +20,7 @@ export class PrismaProductMapper {
   static toPrisma(product: Product) {
     return {
       id: product.productId,
-      category_id: product.category_id,
+      categoryId: product.categoryId,
       name: product.name,
       image: product.image,
       price: product.price,

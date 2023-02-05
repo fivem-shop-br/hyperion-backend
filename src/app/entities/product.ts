@@ -3,9 +3,9 @@ import { Replace } from 'src/helpers/Replace';
 
 export interface ProductProps {
   id: string;
-  category_id: string;
+  categoryId: string;
   name: string;
-  image: string;
+  image: string[];
   price: number;
   createdAt?: Date;
   updatedAt?: Date;
@@ -37,12 +37,12 @@ export class Product {
     return this.props.id;
   }
 
-  public set category_id(category_id: string) {
-    this.props.category_id = category_id;
+  public set categoryId(categoryId: string) {
+    this.props.categoryId = categoryId;
   }
 
-  public get category_id(): string {
-    return this.props.category_id;
+  public get categoryId(): string {
+    return this.props.categoryId;
   }
 
   public set name(name: string) {
@@ -53,11 +53,11 @@ export class Product {
     return this.props.name;
   }
 
-  public set image(image: string) {
+  public set image(image: string[]) {
     this.props.image = image;
   }
 
-  public get image(): string {
+  public get image(): string[] {
     return this.props.image;
   }
 

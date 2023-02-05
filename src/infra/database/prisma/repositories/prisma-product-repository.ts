@@ -8,10 +8,10 @@ import { PrismaService } from '../prisma.service';
 @Injectable()
 export class PrismaProductRepository implements ProductRepository {
   constructor(private prisma: PrismaService) {}
-  async findAllByCategoryId(category_id: string): Promise<Product[]> {
+  async findAllByCategoryId(categoryId: string): Promise<Product[]> {
     const allByCategory = await this.prisma.products.findMany({
       where: {
-        category_id,
+        categoryId,
       },
     });
 

@@ -4,7 +4,7 @@ export class CategoryViewModel {
   static toHTTP(category: Category) {
     return {
       id: category.id,
-      shop_slug: category.shop_slug,
+      shopSlug: category.shopSlug,
       name: category.name,
       createdAt: category.createdAt,
       updatedAt: category.updatedAt,

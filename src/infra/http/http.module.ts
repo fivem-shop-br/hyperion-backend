@@ -19,6 +19,10 @@ import { FindAllProducts } from 'src/app/use-cases/product/find-products';
 import { FindProductById } from 'src/app/use-cases/product/find-product';
 import { CreateProduct } from 'src/app/use-cases/product/create-product';
 import { DeleteProductById } from 'src/app/use-cases/product/delete-product';
+import { FileController } from './controllers/file.controller';
+import { FileUploadService } from 'src/utils/multer.service';
+import { APP_GUARD } from '@nestjs/core';
+import { ShopRolesGuard } from './guards/shop-roles.guard';
 
 @Module({
   imports: [DatabaseModule],
@@ -27,8 +31,13 @@ import { DeleteProductById } from 'src/app/use-cases/product/delete-product';
     ShopController,
     CategorysController,
     ProductController,
+    FileController,
   ],
   providers: [
+    {
+      provide: APP_GUARD,
+      useClass: ShopRolesGuard,
+    },
     FindUserById,
     FindAllUsers,
     DeleteUserById,
@@ -44,6 +53,7 @@ import { DeleteProductById } from 'src/app/use-cases/product/delete-product';
     FindProductById,
     CreateProduct,
     DeleteProductById,
+    FileUploadService,
   ],
 })
 export class HttpModule {}

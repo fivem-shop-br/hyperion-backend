@@ -9,10 +9,10 @@ export interface ShopsProps {
   logo?: string;
   banner?: string;
   favicon?: string;
-  primary_color?: string;
-  secondary_color?: string;
+  primaryColor?: string;
+  secondaryColor?: string;
   domain: string;
-  plan_type: string;
+  planType: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -91,20 +91,20 @@ export class Shop {
     return this.props.favicon;
   }
 
-  public set primary_color(primary_color: string) {
-    this.props.primary_color = primary_color;
+  public set primaryColor(primaryColor: string) {
+    this.props.primaryColor = primaryColor;
   }
 
-  public get primary_color(): string {
-    return this.props.primary_color;
+  public get primaryColor(): string {
+    return this.props.primaryColor;
   }
 
-  public set secondary_color(secondary_color: string) {
-    this.props.secondary_color = secondary_color;
+  public set secondaryColor(secondaryColor: string) {
+    this.props.secondaryColor = secondaryColor;
   }
 
-  public get secondary_color(): string {
-    return this.props.secondary_color;
+  public get secondaryColor(): string {
+    return this.props.secondaryColor;
   }
 
   public set domain(domain: string) {
@@ -115,12 +115,12 @@ export class Shop {
     return this.props.domain;
   }
 
-  public set plan_type(plan_type: string) {
-    this.props.plan_type = plan_type;
+  public set planType(planType: string) {
+    this.props.planType = planType;
   }
 
-  public get plan_type(): string {
-    return this.props.plan_type;
+  public get planType(): string {
+    return this.props.planType;
   }
 
   public get createdAt(): Date {

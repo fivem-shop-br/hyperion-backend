@@ -26,7 +26,6 @@ export class ShopController {
     @Param()
     { slug }: { slug: string },
   ) {
-    console.log(slug);
     const { shop } = await this.findShopBySlug.execute(slug);
     return ShopViewModel.toHTTP(shop);
   }
