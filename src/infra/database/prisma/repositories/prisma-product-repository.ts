@@ -8,14 +8,42 @@ import { PrismaService } from '../prisma.service';
 @Injectable()
 export class PrismaProductRepository implements ProductRepository {
   constructor(private prisma: PrismaService) {}
+
+  async forYou(shopSlug: string): Promise<Product[]> {
+    const findAll = await this.prisma.categories.findMany({
+      where: {
+        shopSlug,
+      },
+      select: {
+        products: {
+          orderBy: {
+            price: 'desc',
+          },
+        },
+      },
+    });
+
+    const mapInCategories = findAll.map(({ products }) => products);
+    const products = mapInCategories.map((product) =>
+      product.map(PrismaProductMapper.toDomain),
+    );
+
+    return [].concat(...products) as Product[];
+  }
+
   async findAllByCategoryId(categoryId: string): Promise<Product[]> {
     const allByCategory = await this.prisma.products.findMany({
       where: {
         categoryId,
       },
+      orderBy: {
+        price: 'desc',
+      },
     });
 
-    return allByCategory.map(PrismaProductMapper.toDomain);
+    console.log(await this.forYou('vice'));
+
+    return allByCategory.map(PrismaProductMapper.toDomain).reverse();
   }
 
   async findById(id: string): Promise<Product> {
