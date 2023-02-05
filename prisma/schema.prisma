@@ -69,9 +69,12 @@ model Shop {
 
   categorys Categories[]
 
-  expiredAt  DateTime
-  createdAt  DateTime     @default(now())
-  updatedAt  DateTime     @updatedAt
+  accessToken String? @default("")
+
+  expiredAt DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   UserInShop UserInShop[]
 }
 
@@ -89,9 +92,9 @@ enum UserInShopRoles {
 
 model UserInShop {
   id        String            @id @default(cuid())
-  user      User              @relation(fields: [userId], references: [id])
+  user      User              @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
-  shop      Shop              @relation(fields: [shopId], references: [id])
+  shop      Shop              @relation(fields: [shopId], references: [id], onDelete: Cascade)
   shopId    String
   role      UserInShopRoles[]
   createdAt DateTime          @default(now())
