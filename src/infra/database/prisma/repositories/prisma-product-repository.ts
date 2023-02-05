@@ -19,6 +19,7 @@ export class PrismaProductRepository implements ProductRepository {
           orderBy: {
             price: 'desc',
           },
+          take: 3,
         },
       },
     });
@@ -28,7 +29,9 @@ export class PrismaProductRepository implements ProductRepository {
       product.map(PrismaProductMapper.toDomain),
     );
 
-    return [].concat(...products) as Product[];
+    return []
+      .concat(...products)
+      .sort((a, b) => a.price - b.price) as Product[];
   }
 
   async findAllByCategoryId(categoryId: string): Promise<Product[]> {
@@ -40,8 +43,6 @@ export class PrismaProductRepository implements ProductRepository {
         price: 'desc',
       },
     });
-
-    console.log(await this.forYou('vice'));
 
     return allByCategory.map(PrismaProductMapper.toDomain).reverse();
   }
