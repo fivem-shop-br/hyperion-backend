@@ -7,16 +7,27 @@ import { CreateProduct } from 'src/app/use-cases/product/create-product';
 import createProduct from '../dtos/create-product';
 import { Product } from 'src/app/entities/product';
 import { DeleteProductById } from 'src/app/use-cases/product/delete-product';
+import { IsPublic } from 'src/auth/decorators/is-public.decorator';
+import { ForYouProcuts } from 'src/app/use-cases/product/for-you-products';
 
 @Controller()
 export class ProductController {
   constructor(
+    private forYouProducts: ForYouProcuts,
     private findAllProducts: FindAllProducts,
     private findProductById: FindProductById,
     private createProduct: CreateProduct,
     private deleteProduct: DeleteProductById,
   ) {}
 
+  @IsPublic()
+  @Get('products-for-you/:shopSlug')
+  async forYou(@Param() { shopSlug }: { shopSlug: string }) {
+    const products = await this.forYouProducts.execute(shopSlug);
+    return products.map(ProductViewModel.toHTTP);
+  }
+
+  @IsPublic()
   @Get('products/:category_id')
   async findAll(@Param() { category_id }: { category_id: string }) {
     const products = await this.findAllProducts.execute(category_id);

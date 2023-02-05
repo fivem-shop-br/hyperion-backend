@@ -23,6 +23,7 @@ import { FileController } from './controllers/file.controller';
 import { FileUploadService } from 'src/utils/multer.service';
 import { APP_GUARD } from '@nestjs/core';
 import { ShopRolesGuard } from './guards/shop-roles.guard';
+import { ForYouProcuts } from 'src/app/use-cases/product/for-you-products';
 
 @Module({
   imports: [DatabaseModule],
@@ -54,6 +55,7 @@ import { ShopRolesGuard } from './guards/shop-roles.guard';
     CreateProduct,
     DeleteProductById,
     FileUploadService,
+    ForYouProcuts,
   ],
 })
 export class HttpModule {}
