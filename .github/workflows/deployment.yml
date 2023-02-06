@@ -42,6 +42,7 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.SSH_KEY }}
           script: |
+            docker swarm init
             echo ${{ secrets.JWT_SECRET }} | docker secret create JWT_SECRET -
             echo ${{ secrets.DATABASE_URL }} | docker secret create DATABASE_URL -
             echo ${{ secrets.AWS_REGION }} | docker secret create AWS_REGION -
