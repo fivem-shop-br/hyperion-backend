@@ -10,7 +10,7 @@ services:
     ports:
       - 5432:5432
     environment:
-      POSTGRES_PASSWORD: iKIK983J9JsimjMSD9QJRU23NJMIMJosmaojsmjOIo0o9o
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - data:/var/lib/postgresql/data
       - type: tmpfs
@@ -22,8 +22,13 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      - JWT_SECRET=576D5A7134743677397A24432646294A404E635266556A586E32723575387821
-      - DATABASE_URL=postgresql://postgres:value@191.101.234.50/database
+      - JWT_SECRET=${JWT_SECRET}
+      - DATABASE_URL=${DATABASE_URL}
+      - AWS_REGION=${AWS_REGION}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_BUCKET_NAME=${AWS_BUCKET_NAME}
+      - AWS_STATIC_URL=${AWS_STATIC_URL}
     depends_on:
       - database
     ports:

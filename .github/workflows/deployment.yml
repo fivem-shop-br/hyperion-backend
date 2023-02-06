@@ -42,6 +42,14 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.SSH_KEY }}
           script: |
+            echo ${{ secrets.JWT_SECRET }} | docker secret create JWT_SECRET -
+            echo ${{ secrets.DATABASE_URL }} | docker secret create DATABASE_URL -
+            echo ${{ secrets.AWS_REGION }} | docker secret create AWS_REGION -
+            echo ${{ secrets.AWS_ACCESS_KEY_ID }} | docker secret create AWS_ACCESS_KEY_ID -
+            echo ${{ secrets.AWS_SECRET_ACCESS_KEY }} | docker secret create AWS_SECRET_ACCESS_KEY -
+            echo ${{ secrets.AWS_BUCKET_NAME }} | docker secret create AWS_BUCKET_NAME -
+            echo ${{ secrets.AWS_STATIC_URL }} | docker secret create AWS_STATIC_URL -
+            
             cd ${{ secrets.SSH_TARGET }}
             npx prisma migrate deploy
             docker compose up -d --force-recreate
