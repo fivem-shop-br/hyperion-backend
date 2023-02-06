@@ -41,15 +41,15 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.SSH_KEY }}
-
-          env:
-            JWT_SECRET=${{ secrets.JWT_SECRET }}
-            DATABASE_URL=${{ secrets.DATABASE_URL }}
-            AWS_REGION=${{ secrets.AWS_REGION }}
-            AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
-            AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
-            AWS_BUCKET_NAME=${{ secrets.AWS_BUCKET_NAME }}
-            AWS_STATIC_URL=${{ secrets.AWS_STATIC_URL }}
+          secrets: |
+            "JWT_SECRET=${{ secrets.JWT_SECRET }}"
+            "DATABASE_URL=${{ secrets.DATABASE_URL }}"
+            "AWS_REGION=${{ secrets.AWS_REGION }}"
+            "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}"
+            "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+            "AWS_BUCKET_NAME=${{ secrets.AWS_BUCKET_NAME }}"
+            "AWS_STATIC_URL=${{ secrets.AWS_STATIC_URL }}"
+          labels: ${{ steps.meta.outputs.labels }}
           script: |
             cd ${{ secrets.SSH_TARGET }}
             docker compose up -d --force-recreate
