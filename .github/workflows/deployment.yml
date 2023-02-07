@@ -43,5 +43,4 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd ${{ secrets.SSH_TARGET }}
-            npx prisma migrate deploy
-            docker compose up -d --force-recreate
+            docker compose --env-file .env up -d --force-recreate
