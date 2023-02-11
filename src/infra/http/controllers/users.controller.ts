@@ -72,7 +72,7 @@ export class UsersController {
   }
 
   @IsPublic()
-  @Get('payment-test-in-production')
+  @Post('payment-test-in-production')
   async paymentTest(@Request() body: unknown) {
     console.log(body);
     return 'sucess';
