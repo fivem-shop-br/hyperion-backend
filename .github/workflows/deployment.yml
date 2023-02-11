@@ -43,4 +43,5 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd ${{ secrets.SSH_TARGET }}
+            docker build -t hyperion-backend-app .
             docker compose --env-file .env up -d --force-recreate
