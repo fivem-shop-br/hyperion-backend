@@ -8,6 +8,7 @@ import {
   Post,
   Param,
   Body,
+  Request,
 } from '@nestjs/common';
 import deleteUser from '../dtos/delete-user';
 import updateUser from '../dtos/update-user';
@@ -68,5 +69,12 @@ export class UsersController {
   async delete(@Body() { id }: deleteUser) {
     const { user } = await this.deleteUserById.execute({ id });
     return UserViewModel.toHTTP(user);
+  }
+
+  @IsPublic()
+  @Get('payment-test-in-production')
+  async paymentTest(@Request() body: unknown) {
+    console.log(body);
+    return 'sucess';
   }
 }
