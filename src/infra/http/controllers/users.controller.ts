@@ -71,11 +71,4 @@ export class UsersController {
     const { user } = await this.deleteUserById.execute({ id });
     return UserViewModel.toHTTP(user);
   }
-
-  @IsPublic()
-  @Post('payment-test-in-production')
-  async paymentTest(@Query() { id }: { id: string }) {
-    console.log(id);
-    return id;
-  }
 }
