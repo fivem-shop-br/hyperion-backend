@@ -8,6 +8,8 @@ import {
   Post,
   Param,
   Body,
+  Request,
+  Query,
 } from '@nestjs/common';
 import deleteUser from '../dtos/delete-user';
 import updateUser from '../dtos/update-user';

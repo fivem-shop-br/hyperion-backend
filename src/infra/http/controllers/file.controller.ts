@@ -15,7 +15,7 @@ import { FileUploadService } from 'src/utils/multer.service';
 export class FileController {
   constructor(private fileUploadService: FileUploadService) {}
 
-  @Throttle(15, 60 * 5)
+  @Throttle(15, 60 * 15)
   @Post('upload')
   @UseInterceptors(FileInterceptor('file'))
   async uploadFile(
