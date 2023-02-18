@@ -17,7 +17,7 @@ export class ShopController {
   @Get('shops')
   async findAll(@CurrentUser() { id: user }: User) {
     const { shop } = await this.findShopByUser.execute({ user });
-    return shop.map(ShopViewModel.toHTTP);
+    return shop.map(ShopViewModel.toOwner);
   }
 
   @IsPublic()
