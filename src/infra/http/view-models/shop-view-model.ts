@@ -18,4 +18,23 @@ export class ShopViewModel {
       updatedAt: shop.updatedAt,
     };
   }
+
+  static toOwner(shop: Shop) {
+    return {
+      id: shop.id,
+      name: shop.name,
+      domain: shop.domain,
+      planType: shop.planType,
+      slug: shop.slug,
+      banner: shop.banner,
+      description: shop.description,
+      favicon: shop.favicon,
+      logo: shop.logo,
+      primaryColor: shop.primaryColor,
+      secondaryColor: shop.secondaryColor,
+      token: 'TOKEN-TEST',
+      createdAt: shop.createdAt,
+      updatedAt: shop.updatedAt,
+    };
+  }
 }
