@@ -22,4 +22,21 @@ export class PrismaShopMapper {
       raw.id,
     );
   }
+
+  static toPrisma(shop: Shop) {
+    return {
+      id: shop.id,
+      name: shop.name,
+      domain: shop.domain,
+      slug: shop.slug,
+      banner: shop.banner,
+      description: shop.description,
+      favicon: shop.favicon,
+      logo: shop.logo,
+      primaryColor: shop.primaryColor,
+      secondaryColor: shop.secondaryColor,
+      createdAt: shop.createdAt,
+      updatedAt: shop.updatedAt,
+    };
+  }
 }

@@ -3,7 +3,7 @@ import { Shop } from 'src/app/entities/shop';
 import { ShopRepository } from 'src/app/repositories/shops-repository';
 import { PrismaShopMapper } from '../mappers/prisma-shop-mappers';
 import { PrismaService } from '../prisma.service';
-import type { UserInShopRoles } from '@prisma/client';
+import type { Shop as Shops, UserInShopRoles } from '@prisma/client';
 @Injectable()
 export class PrismaShopRepository implements ShopRepository {
   constructor(private prisma: PrismaService) {}
@@ -81,5 +81,28 @@ export class PrismaShopRepository implements ShopRepository {
     });
 
     return maxProducts;
+  }
+
+  async update(shop: Shop): Promise<Shops> {
+    const { slug, ...rest } = PrismaShopMapper.toPrisma(shop);
+
+    return await this.prisma.shop.update({
+      where: {
+        slug,
+      },
+      data: rest,
+    });
+  }
+
+  async delete(slug: string): Promise<Shop> {
+    const shop = await this.findBySlug(slug);
+    if (!shop) return null;
+    const deleted = await this.prisma.shop.delete({
+      where: {
+        slug,
+      },
+    });
+
+    return PrismaShopMapper.toDomain(deleted);
   }
 }
