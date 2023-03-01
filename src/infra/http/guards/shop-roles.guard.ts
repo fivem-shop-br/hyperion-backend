@@ -24,16 +24,24 @@ export class ShopRolesGuard implements CanActivate {
     }
 
     const {
-      body: { shopSlug },
+      body: { shopSlug, slug },
       query: { shopSlug: shopSlugQuery },
-      user: { id },
+      user: { id: userId },
     } = context.switchToHttp().getRequest();
-    if (!(shopSlug || shopSlugQuery)) return false;
+    const allSlug = shopSlug || shopSlugQuery || slug;
+    if (!allSlug) return false;
 
-    const { id: shopId } = await this.shopRepository.findBySlug(shopSlug);
-    if (!shopId || !id) return false;
+    const shop = await this.shopRepository.findBySlug(allSlug);
 
-    const roles = await this.shopRepository.allRolesByUserId(id, shopId);
+    if (!shop?.id)
+      throw new Error({
+        message: 'Shop não encontrado.',
+        statusCode: HttpStatus.UNAUTHORIZED,
+      });
+
+    if (!shop.id || !userId) return false;
+
+    const roles = await this.shopRepository.allRolesByUserId(userId, shop?.id);
     const verify =
       requiredRoles.filter((role) => roles.includes(role)).length > 0;
 

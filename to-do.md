@@ -2,4 +2,4 @@
 [x] create dymanic ROLE.
 [x] Review `updateAt and createAt` in user and other tables.
 [x] Verify Permission in shop, and he res a shop.
-[ ] push and write email in lowercase.
+[x] push and write email in lowercase.

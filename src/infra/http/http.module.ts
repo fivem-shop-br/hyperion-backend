@@ -24,6 +24,9 @@ import { FileUploadService } from 'src/utils/multer.service';
 import { APP_GUARD } from '@nestjs/core';
 import { ShopRolesGuard } from './guards/shop-roles.guard';
 import { ForYouProcuts } from 'src/app/use-cases/product/for-you-products';
+import { UpdateProduct } from 'src/app/use-cases/product/update-product';
+import { UpdateShop } from 'src/app/use-cases/shop/update-shop';
+import { DeleteShop } from 'src/app/use-cases/shop/delete-shop';
 
 @Module({
   imports: [DatabaseModule],
@@ -56,6 +59,9 @@ import { ForYouProcuts } from 'src/app/use-cases/product/for-you-products';
     DeleteProductById,
     FileUploadService,
     ForYouProcuts,
+    UpdateProduct,
+    UpdateShop,
+    DeleteShop,
   ],
 })
 export class HttpModule {}
