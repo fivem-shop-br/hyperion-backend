@@ -28,7 +28,7 @@ export class AuthService {
   }
 
   async validateUser(email: string, password: string): Promise<User> {
-    const user = await this.userRepository.findByEmail(email);
+    const user = await this.userRepository.findByEmail(email.toLowerCase());
 
     if (!user)
       throw new Error({

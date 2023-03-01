@@ -25,6 +25,7 @@ export class User {
     this._id = id ?? randomUUID();
     this.props = {
       ...props,
+      email: props.email.toLowerCase(),
       password: props.password && hashSync(props.password, 10),
     };
   }

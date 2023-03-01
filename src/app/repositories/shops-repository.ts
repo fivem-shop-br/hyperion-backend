@@ -1,4 +1,4 @@
-import { UserInShopRoles } from '@prisma/client';
+import { UserInShopRoles, Shop as Shops } from '@prisma/client';
 import { Shop } from '../entities/shop';
 
 export abstract class ShopRepository {
@@ -10,4 +10,6 @@ export abstract class ShopRepository {
   ): Promise<UserInShopRoles[]>;
   abstract maxCategories(shopSlug: string): Promise<number>;
   abstract maxProducts(shopSlug: string): Promise<number>;
+  abstract update(shop: Shop): Promise<Shops>;
+  abstract delete(shopSlug: string): Promise<Shop>;
 }
