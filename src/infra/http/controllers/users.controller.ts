@@ -21,6 +21,7 @@ import { Roles } from '../../../auth/decorators/roles.decorator';
 import { Role } from '../../../auth/roles/role.enum';
 import { IsPublic } from '../../../auth/decorators/is-public.decorator';
 import { Throttle } from '@nestjs/throttler';
+import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
 
 @Controller()
 export class UsersController {
@@ -64,8 +65,7 @@ export class UsersController {
   }
 
   @Delete('user')
-  @Roles(Role.Admin)
-  async delete(@Body() { id }: deleteUser) {
+  async delete(@CurrentUser() { id }: User) {
     const { user } = await this.deleteUserById.execute({ id });
     return UserViewModel.toHTTP(user);
   }
