@@ -11,8 +11,9 @@ export interface ShopsProps {
   favicon?: string;
   primaryColor?: string;
   secondaryColor?: string;
-  domain: string;
-  planType: string;
+  domain?: string;
+  planType: 'free' | 'premium' | 'ultra' | 'super';
+  expiredAt: Date;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -115,12 +116,20 @@ export class Shop {
     return this.props.domain;
   }
 
-  public set planType(planType: string) {
+  public set planType(planType: ShopsProps['planType']) {
     this.props.planType = planType;
   }
 
-  public get planType(): string {
+  public get planType(): ShopsProps['planType'] {
     return this.props.planType;
+  }
+
+  public set expiredAt(expiredAt: Date) {
+    this.props.expiredAt = expiredAt;
+  }
+
+  public get expiredAt(): Date {
+    return this.props.expiredAt;
   }
 
   public get createdAt(): Date {

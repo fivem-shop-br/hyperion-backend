@@ -1,5 +1,5 @@
 import { IsNotEmpty } from 'class-validator';
-
+import { ShopsProps } from 'src/app/entities/shop';
 export default class updateShop {
   @IsNotEmpty({ message: 'slug não pode ser vazio.' })
   slug: string;
@@ -13,7 +13,8 @@ export default class updateShop {
   primaryColor?: string;
   secondaryColor?: string;
   domain: string;
-  planType: string;
+  planType: ShopsProps['planType'];
+  expiredAt: Date;
   createdAt?: Date;
   updatedAt?: Date;
 }

@@ -16,6 +16,7 @@ export class PrismaShopMapper {
         logo: raw.logo,
         primaryColor: raw.primaryColor,
         secondaryColor: raw.secondaryColor,
+        expiredAt: raw.expiredAt,
         createdAt: raw.createdAt,
         updatedAt: raw.updatedAt,
       },
@@ -28,6 +29,7 @@ export class PrismaShopMapper {
       id: shop.id,
       name: shop.name,
       domain: shop.domain,
+      planType: shop.planType,
       slug: shop.slug,
       banner: shop.banner,
       description: shop.description,
@@ -35,6 +37,7 @@ export class PrismaShopMapper {
       logo: shop.logo,
       primaryColor: shop.primaryColor,
       secondaryColor: shop.secondaryColor,
+      expiredAt: shop.expiredAt,
       createdAt: shop.createdAt,
       updatedAt: shop.updatedAt,
     };

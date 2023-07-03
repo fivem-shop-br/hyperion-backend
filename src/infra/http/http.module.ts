@@ -27,6 +27,7 @@ import { ForYouProcuts } from 'src/app/use-cases/product/for-you-products';
 import { UpdateProduct } from 'src/app/use-cases/product/update-product';
 import { UpdateShop } from 'src/app/use-cases/shop/update-shop';
 import { DeleteShop } from 'src/app/use-cases/shop/delete-shop';
+import { CreateShop } from 'src/app/use-cases/shop/create-shop';
 
 @Module({
   imports: [DatabaseModule],
@@ -62,6 +63,7 @@ import { DeleteShop } from 'src/app/use-cases/shop/delete-shop';
     UpdateProduct,
     UpdateShop,
     DeleteShop,
+    CreateShop,
   ],
 })
 export class HttpModule {}
