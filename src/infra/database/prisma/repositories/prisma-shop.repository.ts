@@ -4,6 +4,7 @@ import { ShopRepository } from 'src/app/repositories/shops-repository';
 import { PrismaShopMapper } from '../mappers/prisma-shop-mappers';
 import { PrismaService } from '../prisma.service';
 import type { Shop as Shops, UserInShopRoles } from '@prisma/client';
+
 @Injectable()
 export class PrismaShopRepository implements ShopRepository {
   constructor(private prisma: PrismaService) {}
@@ -81,6 +82,14 @@ export class PrismaShopRepository implements ShopRepository {
     });
 
     return maxProducts;
+  }
+
+  async create(shop: Shop): Promise<Shops> {
+    const { ...rest } = PrismaShopMapper.toPrisma(shop);
+
+    return await this.prisma.shop.create({
+      data: rest,
+    });
   }
 
   async update(shop: Shop): Promise<Shops> {

@@ -59,7 +59,7 @@ model Shop {
   favicon     String?
   banner      String?
   description String?
-  domain      String
+  domain      String?
 
   primaryColor   String?
   secondaryColor String?

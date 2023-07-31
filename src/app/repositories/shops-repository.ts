@@ -10,6 +10,7 @@ export abstract class ShopRepository {
   ): Promise<UserInShopRoles[]>;
   abstract maxCategories(shopSlug: string): Promise<number>;
   abstract maxProducts(shopSlug: string): Promise<number>;
+  abstract create(shop: Shop): Promise<Shops>;
   abstract update(shop: Shop): Promise<Shops>;
   abstract delete(shopSlug: string): Promise<Shop>;
 }

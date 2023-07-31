@@ -3,3 +3,4 @@
 [x] Review `updateAt and createAt` in user and other tables.
 [x] Verify Permission in shop, and he res a shop.
 [x] push and write email in lowercase.
+[x] Excluir conta, caso o usuario tenha um shop, ele precisara deletar o shop primeiramente.
